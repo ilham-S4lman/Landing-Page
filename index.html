@@ -3,25 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kopi Senja — kedai kopi specialty di Bandung. Biji dari petani Gayo, Kintamani, Flores. Roasting sendiri tiap pekan. Buka dari pagi hingga malam.">
+  <meta name="description" content="Kopi Senja — kedai kopi specialty di Jl. Braga No. 47, Bandung. Biji dari Gayo, Kintamani, Flores. Roasting sendiri setiap Selasa.">
   <title>Kopi Senja — Kopi pelan-pelan, sore yang panjang</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream: #F4EEE6;
+      --cream: #F2EBDF;
       --cream-dark: #E8DCC8;
-      --dark: #241912;
-      --dark-soft: #3D2B1F;
-      --terracotta: #B5623A;
-      --terracotta-hover: #9D5331;
-      --white: #FFFFFF;
-      --black: #000000;
+      --text: #231810;
+      --text-soft: #4a3d33;
+      --accent: #A8552F;
+      --accent-hover: #8c4526;
+      --receipt: #FBF7F0;
+      --receipt-text: #231810;
+      --line: rgba(35,24,16,.18);
+      --line-on-dark: rgba(242,235,223,.18);
+      --terracotta: #A8552F;
+      --terracotta-text: #FBF7F0;
+      --kraft: #D9B77E;
+      --kraft-text: #231810;
+      --dark-bg: #231810;
+      --dark-text: #F2EBDF;
+      --dark-text-soft: #c9b8a8;
+      --fallback-img: #3a2a20;
+      --stamp-color: #F2EBDF;
 
       --font-heading: 'Fraunces', Georgia, serif;
-      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-script: 'Caveat', cursive;
+      --font-body: 'Fraunces', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
 
       --space-xs: 8px;
       --space-sm: 16px;
@@ -31,18 +42,14 @@
       --space-2xl: 96px;
       --space-3xl: 128px;
 
-      --container: 1120px;
-      --header-h: 72px;
-
-      --line-hair: 1px solid rgba(36,25,18,0.12);
-      --line-soft: 1px solid rgba(36,25,18,0.2);
+      --container: 1200px;
+      --header-h: 68px;
+      --header-h-mobile: 60px;
+      --gutter: 24px;
 
       --transition: 200ms ease;
-      --transition-slow: 700ms ease;
-
-      --photo-filter: saturate(0.9) sepia(0.12) contrast(1.03);
-
-      --grain-opacity: 0.05;
+      --transition-slow: 600ms ease;
+      --photo-filter: saturate(.92) sepia(.1);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -51,28 +58,24 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-
-    section { scroll-margin-top: var(--header-h); }
 
     body {
       font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--dark);
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--text);
       background: var(--cream);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
     }
 
-    ::selection { background: var(--terracotta); color: var(--white); }
+    ::selection { background: var(--accent); color: var(--cream); }
 
     :focus-visible {
-      outline: 2px solid var(--terracotta);
-      outline-offset: 3px;
-      border-radius: 2px;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     img { max-width: 100%; height: auto; display: block; }
@@ -82,7 +85,11 @@
       width: 100%;
       max-width: var(--container);
       margin: 0 auto;
-      padding: 0 var(--space-md);
+      padding: 0 var(--gutter);
+    }
+
+    @media (min-width: 768px) {
+      .container { padding: 0 calc(var(--gutter) * 2); }
     }
 
     .visually-hidden {
@@ -90,94 +97,77 @@
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    /* Grain texture */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 1000;
-      pointer-events: none;
-      opacity: var(--grain-opacity);
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      body::before { display: none; }
-    }
-
     /* Typography */
-    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; line-height: 1.15; color: var(--dark); }
-    h1 { font-size: clamp(48px, 5.5vw, 80px); letter-spacing: -0.03em; }
-    h2 { font-size: clamp(32px, 3.5vw, 48px); letter-spacing: -0.02em; }
-    h3 { font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.01em; }
-    h4 { font-size: clamp(18px, 1.5vw, 22px); letter-spacing: -0.01em; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; line-height: 0.95; color: var(--text); }
+    h1 { font-size: clamp(3.5rem, 9vw, 8.5rem); letter-spacing: -0.03em; max-width: 60ch; }
+    h2 { font-size: clamp(3rem, 7vw, 6.5rem); letter-spacing: -0.02em; }
+    h3 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.01em; }
 
-    h1 em, h2 em { font-style: italic; color: var(--terracotta); }
+    h1 em, h2 em { font-style: italic; color: var(--accent); }
 
-    p { color: var(--dark-soft); }
-    .small-caps { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--dark-soft); }
-
-    .editorial-number {
-      font-family: var(--font-heading);
-      font-size: clamp(96px, 12vw, 144px);
-      font-weight: 300;
-      line-height: 0.8;
-      color: rgba(42,29,21,0.06);
-      letter-spacing: -0.04em;
-      pointer-events: none;
+    .section-num {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
     }
+    .section-num::before {
+      content: '';
+      flex: 0 0 60px;
+      height: 2px;
+      background: var(--text);
+    }
+    .section-dark .section-num { color: var(--dark-text-soft); }
+    .section-dark .section-num::before { background: var(--dark-text); }
+    .section-terracotta .section-num { color: var(--terracotta-text); }
+    .section-terracotta .section-num::before { background: var(--terracotta-text); }
+    .section-kraft .section-num { color: var(--kraft-text); }
+    .section-kraft .section-num::before { background: var(--kraft-text); }
+
+    p { max-width: 60ch; color: var(--text-soft); }
+    .section-terracotta p { color: var(--terracotta-text); opacity: 0.9; }
+    .section-kraft p { color: var(--kraft-text); }
+    .section-dark p { color: var(--dark-text-soft); }
+
+    .label { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
+    .small { font-family: var(--font-mono); font-size: 13px; color: var(--text-soft); }
+    .small-krem { font-family: var(--font-mono); font-size: 13px; color: var(--dark-text-soft); }
+    .small-kraft { font-family: var(--font-mono); font-size: 13px; color: var(--kraft-text); opacity: 0.8; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* Header */
     .header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--header-h);
       background: var(--cream);
-      border-bottom: var(--line-hair);
-      transition: transform var(--transition);
+      border-bottom: 1px solid var(--line);
     }
-    .header.hidden { transform: translateY(-100%); }
-
     @media (max-width: 767px) {
-      .header { height: 64px; }
-      :root { --header-h: 64px; }
+      .header { height: var(--header-h-mobile); }
     }
 
     .header-inner {
       display: flex; align-items: center; justify-content: space-between; height: 100%;
     }
 
-    .logo {
-      font-family: var(--font-heading);
-      font-size: 22px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      color: var(--dark);
-    }
-    .logo:hover { color: var(--terracotta); }
+    .logo { font-family: var(--font-heading); font-size: 22px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); }
+    .logo:hover { color: var(--accent); }
 
     .nav { display: none; gap: var(--space-lg); }
     @media (min-width: 768px) { .nav { display: flex; } }
 
-    .nav a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--dark-soft);
-      position: relative;
-      padding: 4px 0;
-    }
-    .nav a::after {
-      content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px;
-      background: var(--terracotta); transition: width var(--transition);
-    }
-    .nav a:hover { color: var(--dark); }
+    .nav a { font-family: var(--font-mono); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); position: relative; padding: 4px 0; }
+    .nav a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--accent); transition: width var(--transition); }
+    .nav a:hover { color: var(--text); }
     .nav a:hover::after { width: 100%; }
-
-    .header-status {
-      display: none;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--terracotta);
-      white-space: nowrap;
-    }
-    @media (min-width: 768px) { .header-status { display: block; } }
 
     .nav-toggle {
       display: flex; align-items: center; justify-content: center;
@@ -185,11 +175,8 @@
     }
     @media (min-width: 768px) { .nav-toggle { display: none; } }
 
-    .nav-toggle span,
-    .nav-toggle span::before,
-    .nav-toggle span::after {
-      display: block; width: 22px; height: 1.5px; background: var(--dark);
-      border-radius: 2px; transition: transform var(--transition), opacity var(--transition);
+    .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+      display: block; width: 22px; height: 1.5px; background: var(--text); border-radius: 2px; transition: transform var(--transition), opacity var(--transition);
     }
     .nav-toggle span::before { content: ''; transform: translateY(-7px); }
     .nav-toggle span::after { content: ''; transform: translateY(5.5px); }
@@ -199,278 +186,340 @@
 
     .nav-mobile {
       position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--cream); border-bottom: var(--line-hair);
+      background: var(--cream); border-bottom: 1px solid var(--line);
       padding: var(--space-md); display: none; flex-direction: column; gap: var(--space-xs);
     }
     .nav-mobile.open { display: flex; }
-    .nav-mobile a { padding: var(--space-sm) 0; font-size: 16px; font-weight: 500; color: var(--dark); }
-    .nav-mobile a:hover { color: var(--terracotta); }
-    .nav-mobile-status {
-      padding: var(--space-xs) 0; font-size: 13px; font-weight: 500; color: var(--terracotta);
-      border-top: var(--line-hair); margin-top: var(--space-xs);
-    }
+    .nav-mobile a { font-family: var(--font-mono); font-size: 14px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; padding: var(--space-sm) 0; color: var(--text); }
+    .nav-mobile a:hover { color: var(--accent); }
+
+    .header-status { display: none; font-family: var(--font-mono); font-size: 11px; color: var(--accent); white-space: nowrap; }
+    @media (min-width: 768px) { .header-status { display: block; } }
+    .nav-mobile-status { display: none; font-family: var(--font-mono); font-size: 12px; color: var(--accent); border-top: 1px solid var(--line); padding-top: var(--space-xs); margin-top: var(--space-xs); }
+    .nav-mobile.open .nav-mobile-status { display: block; }
 
     /* Hero */
     .hero {
-      position: relative;
       margin-top: var(--header-h);
       height: calc(100vh - var(--header-h));
       height: calc(100svh - var(--header-h));
       min-height: calc(100vh - var(--header-h));
-      display: flex; align-items: flex-end;
-      padding-bottom: var(--space-3xl);
-      background: var(--dark);
-      overflow: hidden;
+      background: var(--cream);
     }
-    .hero-img {
-      position: absolute; inset: -2%; width: 104%; height: 104%; object-fit: cover;
-      filter: var(--photo-filter);
-      transform: scale(1);
-      transform-origin: center;
-      animation: heroZoom 18s ease-out forwards;
-      opacity: 0; transition: opacity 800ms ease;
+    @media (max-width: 767px) {
+      .hero { margin-top: var(--header-h-mobile); height: auto; min-height: auto; }
     }
-    .hero-img.loaded { opacity: 1; }
-    @keyframes heroZoom { to { transform: scale(1.06); } }
 
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(42,29,21,0.7) 100%);
-      pointer-events: none;
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr; height: 100%;
     }
-    .hero-content { position: relative; z-index: 2; width: 100%; max-width: 720px; color: var(--white); }
-    .hero-content h1 { color: var(--white); margin-bottom: var(--space-md); }
-    .hero-content h1 em { color: var(--terracotta); }
-    .hero-content p { color: rgba(255,255,255,0.85); font-size: clamp(18px, 2vw, 22px); line-height: 1.6; margin-bottom: var(--space-xl); max-width: 560px; }
+    @media (min-width: 900px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+
+    .hero-content {
+      display: flex; flex-direction: column; justify-content: center; padding: var(--space-3xl) var(--gutter);
+      max-width: 640px; margin: 0 auto;
+    }
+    @media (min-width: 900px) { .hero-content { margin: 0; padding-left: calc(var(--gutter) * 2); } }
+
+    .hero-content h1 { color: var(--text); margin-bottom: var(--space-lg); }
+    .hero-content h1 em { color: var(--accent); }
+    .hero-content p { color: var(--text-soft); margin-bottom: var(--space-xl); max-width: 50ch; font-size: 18px; line-height: 1.65; }
+    .hero-content .btn { align-self: flex-start; }
+
     .btn {
-      display: inline-block; padding: 16px 36px;
-      background: var(--terracotta); color: var(--white);
-      font-family: var(--font-body); font-size: 14px; font-weight: 500;
-      letter-spacing: 0.02em; border-radius: 3px;
-      transition: background var(--transition), transform var(--transition);
+      display: inline-block; padding: 16px 32px;
+      background: var(--accent); color: var(--cream);
+      font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background var(--transition), color var(--transition);
     }
-    .btn:hover { background: var(--terracotta-hover); transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
+    .btn:hover { background: var(--accent-hover); }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-dark {
+      background: var(--text); color: var(--cream);
+    }
+    .btn-dark:hover { background: var(--text-soft); }
+
+    .btn-outline {
+      background: transparent; color: var(--dark-text); border: 1px solid var(--dark-text);
+    }
+    .btn-outline:hover { background: var(--dark-text); color: var(--dark-bg); }
+
+    .btn-kraft {
+      background: var(--text); color: var(--kraft);
+    }
+    .btn-kraft:hover { background: var(--text-soft); }
+
+    .hero-status { margin-top: auto; padding-top: var(--space-lg); border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-align: center; }
+    @media (min-width: 900px) { .hero-status { text-align: left; } }
+
+    .hero-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); }
+    .hero-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .hero-img-wrap:hover .hero-img { transform: scale(1.03); }
+
+    /* Stamp */
+    .stamp {
+      position: absolute;
+      bottom: -70px;
+      left: -70px;
+      width: 280px;
+      height: 280px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    @media (max-width: 899px) {
+      .stamp { display: none; }
+    }
+    .stamp svg { width: 100%; height: 100%; }
 
     /* Section base */
     section { padding: var(--space-3xl) 0; }
-    .section-dark { background: var(--dark); color: var(--white); }
-    .section-dark p { color: rgba(255,255,255,0.7); }
-    .section-divider { border-top: var(--line-hair); }
+    .section-divider { border-top: 1px solid var(--line); }
+    .section-terracotta { background: var(--terracotta); color: var(--terracotta-text); }
+    .section-terracotta .section-divider { border-color: var(--line-on-dark); }
+    .section-kraft { background: var(--kraft); color: var(--kraft-text); }
+    .section-kraft .section-divider { border-color: rgba(35,24,16,.25); }
+    .section-dark { background: var(--dark-bg); color: var(--dark-text); }
+    .section-dark .section-divider { border-color: var(--line-on-dark); }
 
-    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* Cerita */
-    .cerita { position: relative; }
-    .cerita-grid {
-      display: grid; gap: var(--space-xl);
+    /* Asymmetric grid for sections */
+    .section-grid {
+      display: grid;
+      gap: var(--space-2xl);
       grid-template-columns: 1fr;
     }
-    @media (min-width: 1024px) {
-      .cerita-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto 1fr;
+    @media (min-width: 900px) {
+      .section-grid {
+        grid-template-columns: repeat(12, 1fr);
         align-items: start;
       }
-      .cerita-text { grid-row: 1 / 3; padding-top: var(--space-xl); position: relative; }
-      .cerita-img-main { grid-column: 2; grid-row: 1; }
-      .cerita-img-side { grid-column: 2; grid-row: 2; margin-top: var(--space-lg); }
-    }
-    .cerita-text h2 { margin-bottom: var(--space-lg); }
-    .cerita-text h2 em { color: var(--terracotta); }
-    .cerita-text p { margin-bottom: var(--space-md); font-size: 17px; }
-
-    .cerita-number {
-      position: absolute; top: -0.5em; left: -0.1em;
-      font-family: var(--font-heading);
-      font-size: clamp(120px, 15vw, 180px);
-      font-weight: 300;
-      line-height: 0.7;
-      color: rgba(42,29,21,0.05);
-      letter-spacing: -0.05em;
-      pointer-events: none;
-      z-index: -1;
+      .section-title-col { grid-column: 1 / 5; padding-top: var(--space-xl); }
+      .section-content-col { grid-column: 5 / 13; }
     }
 
-    .cerita-img { border-radius: 3px; overflow: hidden; }
-    .cerita-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: var(--photo-filter);
-      transition: transform var(--transition-slow);
-      will-change: transform;
-    }
-    .cerita-img:hover img { transform: scale(1.03); }
-    .cerita-img-main { aspect-ratio: 4/5; }
-    .cerita-img-side { aspect-ratio: 4/3; }
+    /* Cerita */
+    .cerita-text { }
+    .cerita-text .section-num { margin-bottom: var(--space-md); }
+    .cerita-text h2 { margin-bottom: var(--space-xl); }
+    .cerita-text p { margin-bottom: var(--space-lg); }
+    .cerita-text .note { margin-top: var(--space-xl); padding-left: var(--space-lg); border-left: 1px solid var(--line-on-dark); font-style: italic; font-size: 17px; line-height: 1.7; color: var(--terracotta-text); opacity: 0.9; }
+    .cerita-text .signature { margin-top: var(--space-md); font-family: var(--font-mono); font-size: 12px; color: var(--terracotta-text); opacity: 0.7; }
 
-    .cerita-note {
-      margin-top: var(--space-xl); padding-top: var(--space-lg);
-      border-top: var(--line-hair);
-      font-size: 16px; line-height: 1.8;
-    }
-    .cerita-note p { margin-bottom: var(--space-md); }
-    .cerita-note .signature {
-      font-family: var(--font-script);
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--dark);
-      display: inline-block;
-      margin-top: var(--space-sm);
-    }
+    .cerita-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 3/4; }
+    .cerita-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .cerita-img-wrap:hover .cerita-img { transform: scale(1.03); }
 
     /* Menu */
-    .menu { background: var(--cream); }
-    .menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-xl); flex-wrap: wrap; gap: var(--space-md); }
-    .menu-header h2 { max-width: 600px; }
-    .menu-header h2 em { color: var(--terracotta); }
-    .menu-img { display: none; }
-    @media (min-width: 1024px) {
-      .menu-grid { display: grid; grid-template-columns: 1fr 480px; gap: var(--space-2xl); align-items: start; }
-      .menu-header { margin-bottom: 0; }
-      .menu-img { display: block; aspect-ratio: 3/4; border-radius: 3px; overflow: hidden; position: sticky; top: calc(var(--header-h) + 32px); }
-      .menu-img img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-      .menu-img:hover img { transform: scale(1.03); }
+    .menu-grid { display: grid; gap: var(--space-2xl); grid-template-columns: 1fr; }
+    @media (min-width: 900px) { .menu-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+    .menu-receipt {
+      background: var(--receipt);
+      color: var(--receipt-text);
+      padding: 40px;
+      max-width: 560px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.8;
+      box-shadow: 0 2px 0 rgba(0,0,0,.08);
+      position: relative;
+      z-index: 5;
+      mask-image: 
+        radial-gradient(circle at 0 0, transparent 12px, #000 13px),
+        radial-gradient(circle at 100% 0, transparent 12px, #000 13px),
+        radial-gradient(circle at 0 100%, transparent 12px, #000 13px),
+        radial-gradient(circle at 100% 100%, transparent 12px, #000 13px);
+      mask-size: 24px 24px;
+      mask-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      mask-repeat: no-repeat;
+      -webkit-mask-image: 
+        radial-gradient(circle at 0 0, transparent 12px, #000 13px),
+        radial-gradient(circle at 100% 0, transparent 12px, #000 13px),
+        radial-gradient(circle at 0 100%, transparent 12px, #000 13px),
+        radial-gradient(circle at 100% 100%, transparent 12px, #000 13px);
+      -webkit-mask-size: 24px 24px;
+      -webkit-mask-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+    }
+    @media (min-width: 900px) {
+      .menu-receipt { transform: rotate(-1.5deg); margin-bottom: -80px; }
+    }
+    @media (max-width: 899px) {
+      .menu-receipt { mask: none; -webkit-mask: none; transform: none; margin-bottom: 0; }
     }
 
-    .menu-category { margin-bottom: var(--space-xl); }
-    .menu-category:last-child { margin-bottom: 0; }
-    .menu-category-title { font-family: var(--font-heading); font-size: 20px; font-weight: 400; color: var(--dark); margin-bottom: var(--space-md); padding-bottom: var(--space-xs); border-bottom: var(--line-soft); }
+    .receipt-header { text-align: center; margin-bottom: var(--space-lg); }
+    .receipt-header .shop-name { font-size: 18px; letter-spacing: 0.15em; font-weight: 500; }
+    .receipt-header .shop-addr { font-size: 12px; margin-top: 4px; color: var(--text-soft); }
+    .receipt-meta { display: flex; justify-content: space-between; font-size: 12px; letter-spacing: 0.08em; margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px dashed var(--line); color: var(--text-soft); }
+    .receipt-divider { border: none; border-top: 1px dashed var(--line); margin: var(--space-md) 0; }
+    .receipt-title { text-align: center; font-size: 12px; letter-spacing: 0.15em; font-weight: 500; margin-bottom: var(--space-lg); }
 
-    .menu-list { display: flex; flex-direction: column; gap: var(--space-sm); }
-    .menu-item { display: grid; grid-template-columns: 1fr auto; gap: var(--space-md); align-items: baseline; padding: var(--space-xs) 0; transition: var(--transition); }
-    @media (min-width: 600px) { .menu-item { grid-template-columns: 1fr 120px; } }
-    .menu-item-info { display: flex; flex-direction: column; gap: 2px; }
-    .menu-item-name { font-weight: 500; color: var(--dark); transition: transform var(--transition); }
-    .menu-item-desc { font-size: 13px; color: var(--dark-soft); }
-    .menu-item-price { font-family: var(--font-heading); font-size: 16px; font-weight: 400; color: var(--dark); text-align: right; white-space: nowrap; }
+    .menu-group { margin-bottom: var(--space-lg); }
+    .menu-group:last-child { margin-bottom: 0; }
+    .group-title { font-size: 12px; letter-spacing: 0.15em; font-weight: 500; margin-bottom: var(--space-sm); padding-bottom: 4px; border-bottom: 1px solid var(--line); }
 
-    .menu-item::after {
-      content: '';
-      grid-column: 1 / -1;
-      height: 1px;
-      background: repeating-linear-gradient(90deg, rgba(42,29,21,0.15) 0, rgba(42,29,21,0.15) 4px, transparent 4px, transparent 8px);
-      transition: background var(--transition);
+    .menu-item { display: flex; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-sm); transition: var(--transition); }
+    .menu-item-info { flex: 1; min-width: 0; }
+    .menu-item-name { display: flex; align-items: baseline; gap: 8px; }
+    .menu-item-name span:first-child { font-weight: 500; }
+    .menu-item-dots { flex: 1; border-bottom: 1px dotted var(--line); height: 1em; transition: border-color var(--transition); }
+    .menu-item:hover .menu-item-dots { border-color: var(--accent); }
+    .menu-item-price { font-weight: 500; white-space: nowrap; color: var(--text); }
+    .menu-item-desc { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
+
+    .receipt-footer { margin-top: var(--space-lg); text-align: center; font-size: 12px; color: var(--text-soft); }
+    .receipt-footer .cashier { display: block; margin-top: 4px; }
+
+    .menu-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 3/4; }
+    .menu-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .menu-img-wrap:hover .menu-img { transform: scale(1.03); }
+
+    /* Bawa Pulang */
+    .bawa-header { margin-bottom: var(--space-xl); }
+    .bawa-header .section-num { margin-bottom: var(--space-md); }
+    .bawa-header h2 { margin-bottom: var(--space-lg); }
+    .bawa-header p { color: var(--kraft-text); margin-bottom: var(--space-lg); }
+
+    .bawa-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); margin-bottom: var(--space-xl); aspect-ratio: 16/9; }
+    .bawa-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .bawa-img-wrap:hover .bawa-img { transform: scale(1.03); }
+
+    .bawa-label-frame {
+      border: 2px solid var(--text);
+      padding: var(--space-lg);
+      position: relative;
+      margin-bottom: var(--space-lg);
     }
-    .menu-item:hover::after { background: repeating-linear-gradient(90deg, var(--terracotta) 0, var(--terracotta) 4px, transparent 4px, transparent 8px); }
-    .menu-item:hover .menu-item-name { transform: translateX(6px); color: var(--terracotta); }
-
-    /* Biji Minggu Ini */
-    .biji { background: var(--cream); }
-    .biji-header { margin-bottom: var(--space-xl); }
-    .biji-header h2 em { color: var(--terracotta); }
-    .biji-schedule { font-size: 14px; color: var(--dark-soft); margin-bottom: var(--space-lg); }
-    .biji-table-wrap { overflow-x: auto; }
-    .biji-table { width: 100%; border-collapse: collapse; font-size: 15px; }
-    .biji-table th, .biji-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: var(--line-hair); }
-    .biji-table th { font-family: var(--font-heading); font-weight: 400; font-size: 14px; color: var(--dark-soft); text-transform: uppercase; letter-spacing: 0.06em; }
-    .biji-table td { color: var(--dark); }
-    .biji-table td:last-child { font-family: var(--font-heading); font-weight: 400; color: var(--terracotta); text-align: right; }
-    .biji-table tr:last-child td { border-bottom: none; }
-    .biji-table tr:hover td { background: rgba(181,98,58,0.04); }
-    .btn-text { color: var(--terracotta); border-bottom: 1px solid var(--terracotta); padding-bottom: 2px; transition: var(--transition); }
-    .btn-text:hover { color: var(--terracotta-hover); border-color: var(--terracotta-hover); }
-
-    /* Suasana Gallery */
-    .suasana { background: var(--cream); }
-    .suasana-header { margin-bottom: var(--space-xl); }
-    .suasana-header h2 em { color: var(--terracotta); }
-    .suasana-grid {
-      display: grid; grid-template-columns: 1fr; gap: var(--space-md);
+    .bawa-label-frame::before {
+      content: 'NET WT 200 G';
+      position: absolute;
+      top: -12px;
+      right: var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      background: var(--kraft);
+      color: var(--text);
+      padding: 2px 8px;
+      border: 2px solid var(--text);
     }
-    @media (min-width: 768px) {
-      .suasana-grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: 320px 320px;
-        grid-auto-flow: dense;
-      }
-      .suasana-img:nth-child(1) { grid-row: span 2; }
-      .suasana-img:nth-child(3) { grid-column: span 2; }
-    }
-    @media (min-width: 1024px) {
-      .suasana-grid { grid-template-rows: 400px 400px; }
-    }
-    .suasana-img { position: relative; border-radius: 3px; overflow: hidden; background: var(--dark); }
-    .suasana-img img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); will-change: transform; }
-    .suasana-img:hover img { transform: scale(1.03); }
 
-    /* Kutipan */
-    .kutipan { text-align: center; padding: var(--space-3xl) var(--space-md); }
-    .kutipan blockquote { max-width: 720px; margin: 0 auto var(--space-lg); font-family: var(--font-heading); font-size: clamp(28px, 3.5vw, 42px); font-style: italic; line-height: 1.35; color: var(--white); letter-spacing: -0.015em; }
-    .kutipan cite { font-family: var(--font-body); font-style: normal; font-size: 14px; color: rgba(255,255,255,0.6); }
-
-    /* Cara Menyeduh V60 */
-    .brew { background: var(--cream); }
-    .brew-header { margin-bottom: var(--space-xl); }
-    .brew-header h2 em { color: var(--terracotta); }
-    .brew-steps { display: flex; flex-direction: column; gap: var(--space-xl); }
-    @media (min-width: 768px) { .brew-steps { flex-direction: row; flex-wrap: wrap; } }
-    .brew-step { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: var(--space-sm); }
-    .brew-step-number {
-      font-family: var(--font-heading);
-      font-size: clamp(72px, 8vw, 96px);
-      font-weight: 300;
-      line-height: 0.8;
-      color: rgba(42,29,21,0.06);
-      letter-spacing: -0.03em;
+    .roast-stamp {
+      display: inline-block;
+      transform: rotate(-2deg);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.8;
+      margin-bottom: var(--space-lg);
+      padding: var(--space-sm) var(--space-md);
+      border: 2px solid var(--accent);
+      background: transparent;
     }
-    .brew-step-title { font-family: var(--font-heading); font-size: 20px; font-weight: 400; color: var(--dark); }
-    .brew-step-desc { font-size: 15px; color: var(--dark-soft); line-height: 1.6; }
+    .roast-stamp .stamp-line { display: block; }
+    .roast-stamp .stamp-next { font-size: 11px; color: var(--text-soft); margin-top: var(--space-xs); padding-top: var(--space-xs); border-top: 1px dashed var(--line); }
+
+    .bawa-table-wrap { margin-bottom: var(--space-lg); }
+    .bawa-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 14px; }
+    .bawa-table th, .bawa-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: 1px dashed var(--line); }
+    .bawa-table th { font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+    .bawa-table td { color: var(--text); }
+    .bawa-table td:last-child { text-align: right; font-weight: 500; }
+    .bawa-table tr:last-child td { border-bottom: none; }
+    .bawa-table tr:hover td { background: rgba(35,24,16,.04); }
+
+    @media (max-width: 599px) {
+      .bawa-table thead { display: none; }
+      .bawa-table, .bawa-table tbody, .bawa-table tr, .bawa-table td { display: block; width: 100%; }
+      .bawa-table tr { margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid var(--line); }
+      .bawa-table td { padding: var(--space-xs) 0; border: none; }
+      .bawa-table td::before { content: attr(data-label); font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); display: block; margin-bottom: 2px; }
+      .bawa-table td:last-child { text-align: left; }
+    }
+
+    .bawa-link { display: inline-block; border-bottom: 1px solid var(--text); color: var(--text); font-family: var(--font-mono); font-size: 13px; margin-bottom: var(--space-xs); transition: var(--transition); }
+    .bawa-link:hover { color: var(--text-soft); border-color: var(--text-soft); }
+    .bawa-note { font-family: var(--font-mono); font-size: 12px; color: var(--text-soft); }
 
     /* Kunjungi */
-    .kunjungi { background: var(--cream); }
-    .kunjungi-grid {
-      display: grid; gap: var(--space-xl); grid-template-columns: 1fr;
-    }
-    @media (min-width: 1024px) { .kunjungi-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
-    .kunjungi-info h2 { margin-bottom: var(--space-lg); }
-    .kunjungi-info h2 em { color: var(--terracotta); }
-    .kunjungi-status { font-size: 15px; font-weight: 500; color: var(--terracotta); margin-bottom: var(--space-lg); min-height: 1.5em; }
-    .kunjungi-details { display: flex; flex-direction: column; gap: var(--space-lg); margin-bottom: var(--space-xl); }
-    .kunjungi-block h4 { font-family: var(--font-heading); font-weight: 400; margin-bottom: var(--space-xs); }
-    .kunjungi-block p { margin: 0; font-size: 16px; line-height: 1.8; }
-    .kunjungi-block a { color: var(--terracotta); border-bottom: 1px solid transparent; transition: border-color var(--transition); }
-    .kunjungi-block a:hover { border-color: var(--terracotta); }
-    .btn-map {
-      display: inline-flex; align-items: center; gap: var(--space-sm);
-      padding: 14px 28px; background: var(--dark); color: var(--white);
-      font-family: var(--font-body); font-size: 14px; font-weight: 500; border-radius: 3px;
-      transition: background var(--transition);
-    }
-    .btn-map:hover { background: var(--dark-soft); }
-    .kunjungi-img { aspect-ratio: 4/5; border-radius: 3px; overflow: hidden; background: var(--dark); }
-    .kunjungi-img img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); will-change: transform; }
-    .kunjungi-img:hover img { transform: scale(1.03); }
+    .kunjungi-grid { display: grid; gap: var(--space-2xl); grid-template-columns: 1fr; }
+    @media (min-width: 900px) { .kunjungi-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
 
-    /* Braga 2019 decorative */
-    .braga-decor {
-      position: relative; margin-top: var(--space-2xl); overflow: hidden;
-      font-family: var(--font-heading);
-      font-size: clamp(120px, 18vw, 280px);
-      font-weight: 300;
-      line-height: 0.75;
-      color: #E8DCC8;
-      letter-spacing: -0.04em;
-      white-space: nowrap;
+    .kunjungi-info .section-num { margin-bottom: var(--space-md); }
+    .kunjungi-info h2 { margin-bottom: var(--space-xl); }
+    .kunjungi-info .details { display: flex; flex-direction: column; gap: var(--space-lg); margin-bottom: var(--space-xl); }
+    .kunjungi-info .block { }
+    .kunjungi-info .block-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-text-soft); margin-bottom: var(--space-xs); }
+    .kunjungi-info .block-text { font-size: 16px; line-height: 1.7; color: var(--dark-text); }
+    .kunjungi-info a { color: var(--accent); border-bottom: 1px solid transparent; transition: var(--transition); }
+    .kunjungi-info a:hover { border-color: var(--accent); }
+
+    .kunjungi-status { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-bottom: var(--space-lg); min-height: 1.5em; }
+
+    .kunjungi-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 4/3; }
+    .kunjungi-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .kunjungi-img-wrap:hover .kunjungi-img { transform: scale(1.03); }
+
+    /* Drip bar (scroll progress) */
+    .drip-bar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100vh;
+      background: var(--line);
+      z-index: 90;
       pointer-events: none;
-      user-select: none;
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .drip-bar { display: block; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .drip-bar { display: none !important; }
+    }
+    .drip-bar__fill {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 0%;
+      background: var(--text);
+      transition: height 0.1s linear;
+    }
+    .drip-bar__drop {
+      position: absolute;
+      left: -3px;
+      width: 8px;
+      height: 8px;
+      background: var(--text);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(45deg) translateY(4px);
     }
 
     /* Footer */
-    .footer { background: var(--dark); color: var(--white); padding: var(--space-xl) 0; }
-    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); text-align: center; }
+    .footer { background: var(--dark-bg); color: var(--dark-text); padding: var(--space-xl) 0; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-md); text-align: center; }
     @media (min-width: 600px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
-    .footer-copyright { font-size: 13px; color: rgba(255,255,255,0.5); }
-    .footer-social a { color: rgba(255,255,255,0.6); font-size: 14px; transition: color var(--transition); }
-    .footer-social a:hover { color: var(--terracotta); }
+    .footer-humor { font-size: 15px; color: var(--dark-text-soft); max-width: 50ch; }
+    .footer-divider { width: 100%; border: none; border-top: 1px solid var(--line-on-dark); margin: var(--space-sm) 0; }
+    .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); width: 100%; }
+    @media (min-width: 600px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
+    .footer-copy { font-family: var(--font-mono); font-size: 12px; color: var(--dark-text-soft); }
+    .footer-social a { font-family: var(--font-mono); font-size: 12px; color: var(--dark-text-soft); transition: var(--transition); }
+    .footer-social a:hover { color: var(--accent); }
 
-    .img-fallback { background: var(--dark); }
-
+    /* Skip link */
     .skip-link {
       position: absolute; top: -100%; left: 50%; transform: translateX(-50%);
-      padding: 12px 24px; background: var(--dark); color: var(--white);
-      font-weight: 500; border-radius: 3px; z-index: 200;
-      transition: top var(--transition);
+      padding: 12px 24px; background: var(--text); color: var(--cream);
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      border-radius: 0; z-index: 200; transition: top var(--transition);
     }
     .skip-link:focus { top: var(--space-md); }
   </style>
@@ -478,12 +527,20 @@
 <body>
   <a href="#main" class="skip-link">Lewati ke konten utama</a>
 
+  <!-- Drip bar (scroll progress) -->
+  <div class="drip-bar" aria-hidden="true">
+    <div class="drip-bar__fill">
+      <div class="drip-bar__drop"></div>
+    </div>
+  </div>
+
   <header class="header" role="banner">
     <div class="container header-inner">
       <a href="/" class="logo" aria-label="Kopi Senja - Beranda">Kopi Senja</a>
       <nav class="nav" aria-label="Navigasi utama">
         <a href="#menu">Menu</a>
         <a href="#cerita">Cerita</a>
+        <a href="#bawa-pulang">Bawa Pulang</a>
         <a href="#kunjungi">Kunjungi</a>
       </nav>
       <div class="header-status" aria-live="polite" aria-atomic="true"></div>
@@ -494,6 +551,7 @@
     <nav class="nav-mobile" id="nav-mobile" aria-label="Menu mobile">
       <a href="#menu">Menu</a>
       <a href="#cerita">Cerita</a>
+      <a href="#bawa-pulang">Bawa Pulang</a>
       <a href="#kunjungi">Kunjungi</a>
       <div class="nav-mobile-status" aria-live="polite" aria-atomic="true"></div>
     </nav>
@@ -501,44 +559,57 @@
 
   <main id="main">
     <section class="hero reveal" aria-labelledby="hero-title">
-      <img class="hero-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=80"
-           alt="Cangkir keramik putih berisi kopi hitam, uap tipis mengarah ke atas, meja kayu tua di latar" width="1400" height="933" loading="eager"
-           onerror="this.classList.add('img-fallback'); this.style.display='none'; this.nextElementSibling.style.display='block';">
-      <div class="img-fallback" style="display:none; position:absolute; inset:0; z-index:-1;" aria-hidden="true"></div>
-      <div class="container hero-content">
-        <h1 id="hero-title">Kopi <em>pelan-pelan</em>, sore yang panjang.</h1>
-        <p>Biji pilihan, roasting mingguan, disajikan tanpa keributan di ujung Braga sejak 2019</p>
-        <a href="#menu" class="btn">Lihat menu</a>
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1 id="hero-title">Kopi <em>pelan-pelan</em>, sore yang panjang.</h1>
+          <p>Kedai kecil di Braga yang menyangrai biji dari Gayo, Kintamani, dan Flores setiap pekan.</p>
+          <a href="#menu" class="btn">Lihat menu</a>
+          <div class="hero-status" aria-live="polite" aria-atomic="true"></div>
+        </div>
+        <figure class="hero-img-wrap" aria-label="Cangkir kopi di meja kayu, cahaya sore">
+          <div class="stamp" aria-hidden="true">
+            <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <path id="circlePath" d="M140 140 m-110 0 a110,110 0 1,0 220,0 a110,110 0 1,0 -220,0"/>
+                <path id="circlePathInner" d="M140 140 m-95 0 a95,95 0 1,0 190,0 a95,95 0 1,0 -190,0"/>
+              </defs>
+              <circle cx="140" cy="140" r="125" fill="none" stroke="#F2EBDF" stroke-width="2"/>
+              <circle cx="140" cy="140" r="95" fill="none" stroke="#F2EBDF" stroke-width="1"/>
+              <text font-family="DM Mono, monospace" font-size="11" fill="#F2EBDF" letter-spacing="2">
+                <textPath href="#circlePath" startOffset="50%" text-anchor="middle">DISANGRAI SENDIRI * BRAGA BANDUNG * SEJAK 2019 *</textPath>
+              </text>
+              <text font-family="DM Mono, monospace" font-size="11" fill="#F2EBDF" letter-spacing="2">
+                <textPath href="#circlePathInner" startOffset="50%" text-anchor="middle" side="1">DISANGRAI SENDIRI * BRAGA BANDUNG * SEJAK 2019 *</textPath>
+              </text>
+              <circle cx="140" cy="140" r="30" fill="none" stroke="#F2EBDF" stroke-width="1"/>
+              <text x="140" y="145" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="400" fill="#F2EBDF" font-style="italic">☕</text>
+            </svg>
+          </div>
+          <img class="hero-img" src="images/hero.jpg" alt="Cangkir keramik putih berisi kopi hitam di atas meja kayu, uap tipis naik, cahaya sore dari jendela" width="1400" height="933" loading="eager"
+               onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+        </figure>
       </div>
     </section>
 
-    <section id="cerita" class="cerita section-divider reveal" aria-labelledby="cerita-title">
+    <section id="cerita" class="cerita section-terracotta section-divider reveal" aria-labelledby="cerita-title">
       <div class="container">
-        <div class="cerita-grid">
-          <div class="cerita-text">
-            <span class="cerita-number" aria-hidden="true">01</span>
-            <h2 id="cerita-title">Kopi <em>Senja</em></h2>
-            <p>Berdiri 2019 di ujung jalan Braga, Bandung. Kami membeli biji langsung dari petani di Gayo, Kintamani, dan Flores — harga jujur, panen musiman, tidak pernah campur</p>
-            <p>Roasting sendiri tiap pekan dengan profil ringan-sedang agar karakter asal terroir tetap terbaca. Tanpa sirup, tanpa bubuk instan, tanpa es kristal berlebih. Hanya kopi, susu segar, gula aren asli, dan waktu</p>
-
-            <div class="cerita-note">
-              <h3 style="font-family: var(--font-heading); font-weight: 400; font-size: 20px; margin-bottom: var(--space-sm);">Catatan dari Dapur</h3>
-              <p>Mesin sangrai pertama kami bekas, dibeli 2018 dari tutup usaha tetangga. Masih dipakai hari ini — tidak ada alasan ganti selama hasilnya konsisten. Beberapa pelanggan tahu bunyinya, datang tepat saat mesin mulai berputar</p>
-              <p class="signature">Dimas, pendiri</p>
+        <div class="section-grid">
+          <div class="section-title-col cerita-text">
+            <div class="section-num">01 / CERITA</div>
+            <h2 id="cerita-title">Cerita</h2>
+            <p>Kopi Senja dibuka tahun 2019 oleh Dimas dan Arga, dua kawan lama yang bosan menunggu kopi enak di kota yang katanya penuh kafe. Kedainya kecil, muat sekitar dua puluh orang.</p>
+            <p>Bijinya kami beli langsung dari petani di Gayo, Kintamani, dan Flores. Setiap Selasa kami sangrai sendiri di ruang belakang. Mesin espresso kami hanya satu, jadi antrean kadang panjang. Kami tidak berniat menambahnya.</p>
+            <div class="note">
+              Mesin sangrai pertama kami bekas, dibeli dari penyangrai di Lembang seharga tiga belas juta. Pegangan pintunya longgar dan sampai sekarang masih kami pakai. Kalau suatu Selasa kedai harum sampai ke trotoar, itu dia bekerja.
+              <div class="signature">Dimas, pendiri</div>
             </div>
           </div>
-          <figure class="cerita-img cerita-img-main" aria-label="Interior kedai Kopi Senja, kayu dan bata terbuka, cahaya sore">
-            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80"
-                 alt="Interior kedai: meja kayu, kursi rotan, rak biji kopi, cahaya matahari sore menyentuh lantai teraso"
-                 width="1400" height="1750" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
-          </figure>
-          <figure class="cerita-img cerita-img-side" aria-label="Biji kopi hijau dan roasted di wadah kayu">
-            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1400&q=80"
-                 alt="Biji kopi hijau segar dan hasil roasting berdampingan di atas meja kayu"
-                 width="1400" height="1050" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
-          </figure>
+          <div class="section-content-col">
+            <figure class="cerita-img-wrap" aria-label="Barista menuang kopi ke cangkir">
+              <img class="cerita-img" src="images/cerita.jpg" alt="Tangan menuang kopi dari V60 ke cangkir keramik, aliran kopi cokelat keemasan, latar kayu gelap" width="1050" height="1400" loading="lazy"
+                   onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -546,252 +617,204 @@
     <section id="menu" class="menu section-divider reveal" aria-labelledby="menu-title">
       <div class="container">
         <div class="menu-grid">
-          <div class="menu-content">
-            <header class="menu-header">
-              <h2 id="menu-title">Menu <em>Harian</em></h2>
+          <div class="menu-receipt" role="list" aria-label="Daftar menu Kopi Senja">
+            <header class="receipt-header">
+              <p class="shop-name">KOPI SENJA</p>
+              <p class="shop-addr">Jl. Braga No. 47, Bandung</p>
+              <div class="receipt-meta">
+                <span class="receipt-date" aria-live="polite"></span>
+                <span class="receipt-queue" aria-live="polite"></span>
+              </div>
             </header>
-            <div class="menu-category">
-              <h3 class="menu-category-title">Kopi</h3>
-              <ul class="menu-list" role="list">
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Espresso</span>
-                    <span class="menu-item-desc">Blend Gayo-Kintamani, cokelat hitam, kacang tanah</span>
-                  </div>
-                  <span class="menu-item-price">Rp22.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">V60 Single Origin</span>
-                    <span class="menu-item-desc">Rotasi musiman: Gayo / Kintamani / Flores</span>
-                  </div>
-                  <span class="menu-item-price">Rp38.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Flat White</span>
-                    <span class="menu-item-desc">Double shot, susu sapi full cream, microfoam tipis</span>
-                  </div>
-                  <span class="menu-item-price">Rp32.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Kopi Susu Senja</span>
-                    <span class="menu-item-desc">Espresso, susu, gula aren cair, es batu</span>
-                  </div>
-                  <span class="menu-item-price">Rp28.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Cold Brew</span>
-                    <span class="menu-item-desc">Steep 18 jam, Gayo natural, manis alami, asam rendah</span>
-                  </div>
-                  <span class="menu-item-price">Rp34.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Es Kopi Aren</span>
-                    <span class="menu-item-desc">Tubruk Gayo, gula aren blok, santan kelapa</span>
-                  </div>
-                  <span class="menu-item-price">Rp30.000</span>
-                </li>
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Piccolo</span>
-                    <span class="menu-item-desc">Ristretto, susu steamed, gelas 90ml</span>
-                  </div>
-                  <span class="menu-item-price">Rp28.000</span>
-                </li>
-              </ul>
+            <hr class="receipt-divider">
+            <p class="receipt-title">DAFTAR MENU</p>
+
+            <div class="menu-group">
+              <p class="group-title">KOPI</p>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Espresso</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc">Blend Senja, cokelat dan karamel</p>
+                </div>
+                <span class="menu-item-price">22.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>V60 Single Origin</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc">Berganti tiap pekan</p>
+                </div>
+                <span class="menu-item-price">38.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Flat White</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc"></p>
+                </div>
+                <span class="menu-item-price">32.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Piccolo</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc"></p>
+                </div>
+                <span class="menu-item-price">28.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Cold Brew</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc">Diseduh 18 jam</p>
+                </div>
+                <span class="menu-item-price">34.000</span>
+              </div>
             </div>
-            <div class="menu-category">
-              <h3 class="menu-category-title">Lainnya</h3>
-              <ul class="menu-list" role="list">
-                <li class="menu-item">
-                  <div class="menu-item-info">
-                    <span class="menu-item-name">Teh Hitam Pangalengan</span>
-                    <span class="menu-item-desc">Brewed panas, tannin lembut, tanpa pemanis</span>
-                  </div>
-                  <span class="menu-item-price">Rp24.000</span>
-                </li>
-              </ul>
+
+            <div class="menu-group">
+              <p class="group-title">LAINNYA</p>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Kopi Susu Senja</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc">Gula aren, susu segar</p>
+                </div>
+                <span class="menu-item-price">28.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Es Kopi Aren</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc"></p>
+                </div>
+                <span class="menu-item-price">30.000</span>
+              </div>
+              <div class="menu-item" role="listitem">
+                <div class="menu-item-info">
+                  <div class="menu-item-name"><span>Teh Hitam Pangalengan</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                  <p class="menu-item-desc"></p>
+                </div>
+                <span class="menu-item-price">24.000</span>
+              </div>
             </div>
+
+            <hr class="receipt-divider">
+            <p class="receipt-footer">
+              Harga dalam rupiah. Terima kasih.
+              <span class="cashier">KASIR: DIMAS</span>
+            </p>
           </div>
-          <figure class="menu-img" aria-label="Barista menuang espresso ke cangkir putih, crema tebal">
-            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1400&q=80"
-                 alt="Tangan menuang espresso dari portafilter ke cangkir keramik, crema emas tebal"
-                 width="1400" height="1866" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+          <figure class="menu-img-wrap" aria-label="Espresso dengan crema tebal">
+            <img class="menu-img" src="images/menu.jpg" alt="Close-up espresso di cangkir putih, crema emas tebal dan merata, refleksi cahaya di permukaan" width="1050" height="1400" loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
           </figure>
         </div>
       </div>
     </section>
 
-    <section id="biji" class="biji section-divider reveal" aria-labelledby="biji-title">
+    <section id="bawa-pulang" class="bawa-pulang section-kraft section-divider reveal" aria-labelledby="bawa-title">
       <div class="container">
-        <header class="biji-header">
-          <span class="editorial-number" aria-hidden="true" style="margin-bottom: -0.5em; display: block;">02</span>
-          <h2 id="biji-title">Biji <em>Minggu Ini</em></h2>
-          <p class="biji-schedule">Disangrai Selasa, siap diambil Rabu pagi</p>
+        <header class="bawa-header">
+          <div class="section-num">02 / BAWA PULANG</div>
+          <h2 id="bawa-title">Bawa Pulang</h2>
+          <p>Biji yang kami sangrai Selasa, siap diambil Rabu pagi.</p>
         </header>
-        <div class="biji-table-wrap">
-          <table class="biji-table">
-            <thead>
-              <tr>
-                <th>Asal</th>
-                <th>Ketinggian</th>
-                <th>Proses</th>
-                <th>Catatan rasa</th>
-                <th>Harga per 200 g</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Gayo, Aceh Tengah</td>
-                <td>1.400 mdpl</td>
-                <td>Giling basah</td>
-                <td>Cokelat pekat, rempah, body tebal</td>
-                <td>Rp98.000</td>
-              </tr>
-              <tr>
-                <td>Kintamani, Bali</td>
-                <td>1.200 mdpl</td>
-                <td>Honey</td>
-                <td>Jeruk manis, madu, asam lembut</td>
-                <td>Rp105.000</td>
-              </tr>
-              <tr>
-                <td>Flores Bajawa</td>
-                <td>1.300 mdpl</td>
-                <td>Natural</td>
-                <td>Buah kering, kakao, manis panjang</td>
-                <td>Rp110.000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="margin-top: var(--space-lg);">
-          <a href="https://wa.me/6281234550147?text=Halo%2C%20saya%20ingin%20memesan%20biji%20kopi%20minggu%20ini" target="_blank" rel="noopener" class="btn-text">Pesan biji lewat WhatsApp</a>
-        </p>
-      </div>
-    </section>
 
-    <section class="brew section-divider reveal" aria-labelledby="brew-title">
-      <div class="container">
-        <header class="brew-header">
-          <h2 id="brew-title">Cara kami menyeduh <em>V60</em></h2>
-        </header>
-        <div class="brew-steps">
-          <div class="brew-step">
-            <span class="brew-step-number" aria-hidden="true">1</span>
-            <h3 class="brew-step-title">Rasio 1:15</h3>
-            <p class="brew-step-desc">18 g biji, 270 ml air. Timbang sebelum mendidih</p>
+        <figure class="bawa-img-wrap" aria-label="Biji kopi hijau dan roasted di wadah kayu">
+          <img class="bawa-img" src="images/biji.jpg" alt="Biji kopi hijau segar dan hasil roasting berdampingan di atas meja kayu, tekstur biji jelas" width="1400" height="788" loading="lazy"
+               onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+        </figure>
+
+        <div class="bawa-label-frame">
+          <div class="roast-stamp" aria-live="polite" aria-atomic="true">
+            <span class="stamp-line" id="roast-date"></span>
+            <span class="stamp-line" id="pickup-date"></span>
+            <span class="stamp-next" id="next-roast-date"></span>
           </div>
-          <div class="brew-step">
-            <span class="brew-step-number" aria-hidden="true">2</span>
-            <h3 class="brew-step-title">Air 92 derajat</h3>
-            <p class="brew-step-desc">Tutup panci, tunggu 45 detik setelah mendidih</p>
-          </div>
-          <div class="brew-step">
-            <span class="brew-step-number" aria-hidden="true">3</span>
-            <h3 class="brew-step-title">Gilingan medium</h3>
-            <p class="brew-step-desc">Seukuran garam kasar. Terlalu halus = over-extract</p>
-          </div>
-          <div class="brew-step">
-            <span class="brew-step-number" aria-hidden="true">4</span>
-            <h3 class="brew-step-title">2:30 menit</h3>
-            <p class="brew-step-desc">Bloom 30 detik, tuang bergilir. Total 2 menit 30 detik</p>
+          <div class="bawa-table-wrap">
+            <table class="bawa-table">
+              <thead>
+                <tr>
+                  <th>Asal</th>
+                  <th>Ketinggian</th>
+                  <th>Proses</th>
+                  <th>Rasa</th>
+                  <th>200 g</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Asal">Gayo, Aceh Tengah</td>
+                  <td data-label="Ketinggian">1.400 mdpl</td>
+                  <td data-label="Proses">Giling basah</td>
+                  <td data-label="Rasa">Cokelat pekat, rempah, body tebal</td>
+                  <td data-label="200 g">98.000</td>
+                </tr>
+                <tr>
+                  <td data-label="Asal">Kintamani, Bali</td>
+                  <td data-label="Ketinggian">1.200 mdpl</td>
+                  <td data-label="Proses">Honey</td>
+                  <td data-label="Rasa">Jeruk manis, madu, asam lembut</td>
+                  <td data-label="200 g">105.000</td>
+                </tr>
+                <tr>
+                  <td data-label="Asal">Flores Bajawa</td>
+                  <td data-label="Ketinggian">1.300 mdpl</td>
+                  <td data-label="Proses">Natural</td>
+                  <td data-label="Rasa">Buah kering, kakao, manis panjang</td>
+                  <td data-label="200 g">110.000</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+
+        <a href="https://wa.me/6281234550147?text=Halo%20Kopi%20Senja%2C%20saya%20mau%20beli%20biji%20kopi%20200%20g.%20Masih%20ada%3F" target="_blank" rel="noopener" class="bawa-link">Bawa pulang bijinya</a>
+        <p class="bawa-note">Ambil di kedai atau kami kirim. Cek stok lewat WhatsApp.</p>
       </div>
     </section>
 
-    <section class="suasana section-divider reveal" aria-labelledby="suasana-title">
-      <div class="container">
-        <header class="suasana-header">
-          <h2 id="suasana-title">Suasana <em>Hari Ini</em></h2>
-          <p class="small-caps">Buka 07.00–22.00, Sabtu-Minggu hingga 23.00</p>
-        </header>
-        <div class="suasana-grid">
-          <figure class="suasana-img" aria-label="Pagi di Kopi Senja, cahaya masuk lebar jendela">
-            <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=1400&q=80"
-                 alt="Meja dekat jendela, cangkir kopi, buku terbuka, cahaya pagi lembut"
-                 width="1400" height="1400" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
-          </figure>
-          <figure class="suasana-img" aria-label="Detail meja: cangkir, skala timbangan, biji kopi">
-            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1400&q=80"
-                 alt="Close-up espresso dengan crema sempurna, di samping timbangan dan biji kopi"
-                 width="1400" height="933" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
-          </figure>
-          <figure class="suasana-img" aria-label="Sore di area duduk luar, lampu tali menyala">
-            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80"
-                 alt="Area outdoor kayu, lampu tali hangat, orang ngobrol santai"
-                 width="1400" height="933" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="kutipan section-dark reveal" aria-labelledby="kutipan-title">
-      <div class="container">
-        <blockquote>
-          "Tempatnya gak ramai tapi gak sepi. Kopinya jujur — rasa bijinya kelihatan, bukan disembunyin sirup. Sudah tiga tahun ini jadi tempat favorit kalau butuh pikir jernih"
-        </blockquote>
-        <cite>— Raka, penulis, Bandung</cite>
-      </div>
-    </section>
-
-    <section id="kunjungi" class="kunjungi section-divider reveal" aria-labelledby="kunjungi-title">
+    <section id="kunjungi" class="kunjungi section-dark section-divider reveal" aria-labelledby="kunjungi-title">
       <div class="container">
         <div class="kunjungi-grid">
           <div class="kunjungi-info">
-            <h2 id="kunjungi-title">Kunjungi <em>Kami</em></h2>
+            <div class="section-num">03 / KUNJUNGI</div>
+            <h2 id="kunjungi-title">Kunjungi Kami</h2>
             <div class="kunjungi-status" aria-live="polite" aria-atomic="true"></div>
-            <div class="kunjungi-details">
-              <div class="kunjungi-block">
-                <h4>Alamat</h4>
-                <p>Jl. Braga No. 78<br>Kec. Sumur Bandung, Kota Bandung<br>Jawa Barat 40111</p>
+            <div class="details">
+              <div class="block">
+                <p class="block-title">Alamat</p>
+                <p class="block-text">Jl. Braga No. 47, Bandung</p>
               </div>
-              <div class="kunjungi-block">
-                <h4>Jam Buka</h4>
-                <p>Senin–Jumat &nbsp; 07.00–22.00<br>Sabtu–Minggu &nbsp; 08.00–23.00</p>
+              <div class="block">
+                <p class="block-title">Jam Buka</p>
+                <p class="block-text">Senin–Jumat 07.00–22.00<br>Sabtu–Minggu 08.00–23.00</p>
               </div>
-              <div class="kunjungi-block">
-                <h4>Telepon</h4>
-                <p><a href="tel:+62221234567">+62 22 1234 567</a></p>
+              <div class="block">
+                <p class="block-title">Telepon</p>
+                <p class="block-text"><a href="tel:+622255500147">022-5550-0147</a></p>
               </div>
-              <div class="kunjungi-block">
-                <h4>Instagram</h4>
-                <p><a href="https://instagram.com/kopisenja" target="_blank" rel="noopener">@kopisenja</a></p>
+              <div class="block">
+                <p class="block-title">Instagram</p>
+                <p class="block-text"><a href="https://instagram.com/kopisenja.bdg" target="_blank" rel="noopener">@kopisenja.bdg</a></p>
               </div>
             </div>
-            <a href="https://maps.google.com/?q=Kopi+Senja+Jl+Braga+Bandung" target="_blank" rel="noopener" class="btn-map">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              Petunjuk arah
-            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Braga+47+Bandung" target="_blank" rel="noopener" class="btn btn-outline">Petunjuk arah</a>
           </div>
-          <figure class="kunjungi-img" aria-label="Fasade Kopi Senja di jalan Braga, awning kayu, pintu kaca">
-            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80"
-                 alt="Fasade kedai: awning kayu tua, tulisan Kopi Senja, pintu kaca besar, tanaman di samping"
-                 width="1400" height="1750" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback');">
+          <figure class="kunjungi-img-wrap" aria-label="Interior kedai Kopi Senja, kayu dan bata terbuka">
+            <img class="kunjungi-img" src="images/kunjungi.jpg" alt="Interior kedai: meja kayu, kursi rotan, rak biji kopi, cahaya masuk lebar jendela, area duduk santai" width="1400" height="1050" loading="lazy"
+                 onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
           </figure>
         </div>
       </div>
     </section>
-
-    <div class="braga-decor" aria-hidden="true">Braga, 2019</div>
   </main>
 
-  <footer class="footer" role="contentinfo">
+  <footer class="footer section-dark" role="contentinfo">
     <div class="container footer-inner">
-      <p class="footer-copyright">&copy; 2024 Kopi Senja. Semua hak dilindungi. Mesin sangrai masih yang lama</p>
-      <nav class="footer-social" aria-label="Media sosial">
-        <a href="https://instagram.com/kopisenja" target="_blank" rel="noopener">Instagram</a>
-      </nav>
+      <p class="footer-humor">Antrean panjang? Itu tandanya mesinnya sedang bekerja keras.</p>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Kopi Senja. Jl. Braga No. 47, Bandung.</p>
+        <nav class="footer-social" aria-label="Media sosial">
+          <a href="https://instagram.com/kopisenja.bdg" target="_blank" rel="noopener">@kopisenja.bdg</a>
+        </nav>
+      </div>
     </div>
   </footer>
 
@@ -807,20 +830,92 @@
       const heroImg = document.querySelector('.hero-img');
       const headerStatus = document.querySelector('.header-status');
       const navMobileStatus = document.querySelector('.nav-mobile-status');
+      const heroStatus = document.querySelector('.hero-status');
       const kunjungiStatus = document.querySelector('.kunjungi-status');
-      const ceritaImgs = document.querySelectorAll('.cerita-img img');
+      const allPhotoWraps = document.querySelectorAll('.hero-img-wrap, .cerita-img-wrap, .menu-img-wrap, .bawa-img-wrap, .kunjungi-img-wrap');
+      const receiptDate = document.querySelector('.receipt-date');
+      const receiptQueue = document.querySelector('.receipt-queue');
+      const roastDateEl = document.querySelector('#roast-date');
+      const pickupDateEl = document.querySelector('#pickup-date');
+      const nextRoastDateEl = document.querySelector('#next-roast-date');
+      const dripFill = document.querySelector('.drip-bar__fill');
 
-      let lastScrollY = window.scrollY;
-      let ticking = false;
-      let rafId = null;
+      // Queue number (random 1-40, fixed for session)
+      const queueNumber = String(Math.floor(Math.random() * 40) + 1).padStart(3, '0');
 
-      // Real-time open/closed status
-      function getStatusText() {
+      // Date helpers (Asia/Jakarta)
+      function getJakartaNow() {
         const now = new Date();
-        const jakartaTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
-        const day = jakartaTime.getDay(); // 0 = Minggu, 6 = Sabtu
-        const hours = jakartaTime.getHours();
-        const minutes = jakartaTime.getMinutes();
+        return new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }));
+      }
+
+      function formatDateShort(date) {
+        const dayNames = ['MINGGU', 'SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT', 'SABTU'];
+        const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
+        const day = dayNames[date.getDay()];
+        const dateNum = date.getDate();
+        const month = monthNames[date.getMonth()];
+        const year = date.getFullYear();
+        return `${day}, ${dateNum} ${month} ${year}`;
+      }
+
+      function formatReceiptDateTime(date) {
+        const dd = String(date.getDate()).padStart(2, '0');
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const yyyy = date.getFullYear();
+        const hh = String(date.getHours()).padStart(2, '0');
+        const mi = String(date.getMinutes()).padStart(2, '0');
+        return `TGL ${dd}/${mm}/${yyyy}   JAM ${hh}.${mi}`;
+      }
+
+      function formatReceiptQueue() {
+        return `NO. ANTREAN ${queueNumber}`;
+      }
+
+      // Calculate last Tuesday (or today if Tuesday)
+      function getLastTuesday(date) {
+        const d = new Date(date);
+        const day = d.getDay(); // 0=Sun, 2=Tue
+        const diff = (day - 2 + 7) % 7;
+        d.setDate(d.getDate() - diff);
+        d.setHours(0, 0, 0, 0);
+        return d;
+      }
+
+      function getNextDay(date) {
+        const d = new Date(date);
+        d.setDate(d.getDate() + 1);
+        return d;
+      }
+
+      function getNextTuesday(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = (2 - day + 7) % 7;
+        if (diff === 0) d.setDate(d.getDate() + 7);
+        else d.setDate(d.getDate() + diff);
+        d.setHours(0, 0, 0, 0);
+        return d;
+      }
+
+      function updateRoastStamp() {
+        const now = getJakartaNow();
+        const lastTue = getLastTuesday(now);
+        const pickupDay = getNextDay(lastTue);
+        const nextTue = getNextTuesday(now);
+        const daysUntil = Math.ceil((nextTue - now) / (1000 * 60 * 60 * 24));
+
+        if (roastDateEl) roastDateEl.textContent = `DISANGRAI: ${formatDateShort(lastTue)}`;
+        if (pickupDateEl) pickupDateEl.textContent = `SIAP DIAMBIL: ${formatDateShort(pickupDay)}`;
+        if (nextRoastDateEl) nextRoastDateEl.textContent = `SANGRAI BERIKUTNYA: ${formatDateShort(nextTue)} (${daysUntil} HARI LAGI)`;
+      }
+
+      // Real-time open/closed status (Asia/Jakarta)
+      function getStatusText() {
+        const now = getJakartaNow();
+        const day = now.getDay();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
         const currentMinutes = hours * 60 + minutes;
 
         const isWeekend = day === 0 || day === 6;
@@ -849,39 +944,33 @@
         const text = getStatusText();
         if (headerStatus) headerStatus.textContent = text;
         if (navMobileStatus) navMobileStatus.textContent = text;
+        if (heroStatus) heroStatus.textContent = text;
         if (kunjungiStatus) kunjungiStatus.textContent = text;
       }
-      updateStatus();
-      setInterval(updateStatus, 60000);
 
-      // Header scroll hide/show
-      function onScroll() {
-        const currentScrollY = window.scrollY;
-
-        if (currentScrollY < 10) {
-          header.classList.remove('hidden');
-        } else if (currentScrollY > lastScrollY) {
-          header.classList.add('hidden');
-        } else {
-          header.classList.remove('hidden');
-        }
-        lastScrollY = currentScrollY;
-
-        // Parallax for cerita images
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          ceritaImgs.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            if (rect.bottom > 0 && rect.top < viewportHeight) {
-              const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
-              const translateY = (progress - 0.5) * 60;
-              img.style.transform = `translateY(${translateY}px) scale(1)`;
-            }
-          });
-        }
+      function updateReceiptMeta() {
+        const now = getJakartaNow();
+        if (receiptDate) receiptDate.textContent = formatReceiptDateTime(now);
+        if (receiptQueue) receiptQueue.textContent = formatReceiptQueue();
       }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
+
+      function updateDripBar() {
+        if (!dripFill) return;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+        dripFill.style.height = `${progress * 100}%`;
+      }
+
+      // Initial updates
+      updateRoastStamp();
+      updateStatus();
+      updateReceiptMeta();
+      updateDripBar();
+
+      // Timers
+      setInterval(updateStatus, 60000);
+      setInterval(updateReceiptMeta, 60000);
 
       // Mobile nav
       navToggle.addEventListener('click', function() {
@@ -910,9 +999,22 @@
 
       // Hero image load
       if (heroImg) {
-        if (heroImg.complete) heroImg.classList.add('loaded');
-        else heroImg.addEventListener('load', function() { heroImg.classList.add('loaded'); });
+        if (heroImg.complete) heroImg.style.opacity = '1';
+        else heroImg.addEventListener('load', function() { heroImg.style.opacity = '1'; });
       }
+
+      // Scroll events
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateDripBar();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
 
       // IntersectionObserver reveal
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -931,10 +1033,9 @@
         revealElements.forEach(function(el) { el.classList.add('visible'); });
       }
 
-      // Ensure photo filter on load for all images
-      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        if (img.complete) img.style.filter = 'saturate(0.9) sepia(0.12) contrast(1.03)';
-        else img.addEventListener('load', function() { this.style.filter = 'saturate(0.9) sepia(0.12) contrast(1.03)'; });
+      // Photo hover zoom (handled by CSS, but ensure overflow hidden on wraps)
+      allPhotoWraps.forEach(wrap => {
+        wrap.style.overflow = 'hidden';
       });
     })();
   </script>
