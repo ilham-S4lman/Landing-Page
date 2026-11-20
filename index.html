@@ -11,24 +11,17 @@
   <style>
     :root {
       --cream: #F2EBDF;
-      --cream-dark: #E8DCC8;
-      --text: #231810;
-      --text-soft: #4a3d33;
-      --accent: #A8552F;
-      --accent-hover: #8c4526;
-      --receipt: #FBF7F0;
-      --receipt-text: #231810;
-      --line: rgba(35,24,16,.18);
-      --line-on-dark: rgba(242,235,223,.18);
-      --terracotta: #A8552F;
-      --terracotta-text: #FBF7F0;
-      --kraft: #D9B77E;
-      --kraft-text: #231810;
-      --dark-bg: #231810;
+      --paper: #FBF7F0;
+      --dark: #231810;
       --dark-text: #F2EBDF;
       --dark-text-soft: #c9b8a8;
+      --accent: #A8552F;
+      --accent-hover: #8c4526;
+      --text: #231810;
+      --text-soft: #4a3d33;
+      --line: rgba(35,24,16,.18);
+      --line-on-dark: rgba(242,235,223,.18);
       --fallback-img: #3a2a20;
-      --stamp-color: #F2EBDF;
 
       --font-heading: 'Fraunces', Georgia, serif;
       --font-body: 'Fraunces', Georgia, serif;
@@ -40,12 +33,14 @@
       --space-lg: 40px;
       --space-xl: 64px;
       --space-2xl: 96px;
-      --space-3xl: 128px;
+      --space-3xl: 112px;
 
       --container: 1200px;
       --header-h: 68px;
       --header-h-mobile: 60px;
       --gutter: 24px;
+      --gutter-desktop: 48px;
+      --section-gap: 64px;
 
       --transition: 200ms ease;
       --transition-slow: 600ms ease;
@@ -89,7 +84,7 @@
     }
 
     @media (min-width: 768px) {
-      .container { padding: 0 calc(var(--gutter) * 2); }
+      .container { padding: 0 var(--gutter-desktop); }
     }
 
     .visually-hidden {
@@ -98,46 +93,31 @@
     }
 
     /* Typography */
-    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; line-height: 0.95; color: var(--text); }
-    h1 { font-size: clamp(3.5rem, 9vw, 8.5rem); letter-spacing: -0.03em; max-width: 60ch; }
-    h2 { font-size: clamp(3rem, 7vw, 6.5rem); letter-spacing: -0.02em; }
-    h3 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.01em; }
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; line-height: 1.1; color: var(--text); }
+    h1 { font-size: clamp(2.6rem, 5.5vw, 4.5rem); letter-spacing: -0.02em; max-width: 55ch; }
+    h2 { font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.015em; max-width: 55ch; }
+    h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); letter-spacing: -0.01em; }
 
     h1 em, h2 em { font-style: italic; color: var(--accent); }
 
-    .section-num {
+    .section-label {
       font-family: var(--font-mono);
-      font-size: 14px;
-      letter-spacing: 0.12em;
+      font-size: 13px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
       margin-bottom: var(--space-md);
     }
-    .section-num::before {
-      content: '';
-      flex: 0 0 60px;
-      height: 2px;
-      background: var(--text);
-    }
-    .section-dark .section-num { color: var(--dark-text-soft); }
-    .section-dark .section-num::before { background: var(--dark-text); }
-    .section-terracotta .section-num { color: var(--terracotta-text); }
-    .section-terracotta .section-num::before { background: var(--terracotta-text); }
-    .section-kraft .section-num { color: var(--kraft-text); }
-    .section-kraft .section-num::before { background: var(--kraft-text); }
+    .section-dark .section-label { color: var(--dark-text-soft); }
 
-    p { max-width: 60ch; color: var(--text-soft); }
-    .section-terracotta p { color: var(--terracotta-text); opacity: 0.9; }
-    .section-kraft p { color: var(--kraft-text); }
+    p { max-width: 55ch; color: var(--text-soft); }
     .section-dark p { color: var(--dark-text-soft); }
 
     .label { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-soft); }
+    .label-dark { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark-text-soft); }
     .small { font-family: var(--font-mono); font-size: 13px; color: var(--text-soft); }
-    .small-krem { font-family: var(--font-mono); font-size: 13px; color: var(--dark-text-soft); }
-    .small-kraft { font-family: var(--font-mono); font-size: 13px; color: var(--kraft-text); opacity: 0.8; }
+    .small-dark { font-family: var(--font-mono); font-size: 13px; color: var(--dark-text-soft); }
+    .small-accent { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
 
     /* Reveal */
     .reveal { opacity: 0; transform: translateY(12px); transition: opacity 600ms ease, transform 600ms ease; }
@@ -161,7 +141,7 @@
     .logo { font-family: var(--font-heading); font-size: 22px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); }
     .logo:hover { color: var(--accent); }
 
-    .nav { display: none; gap: var(--space-lg); }
+    .nav { display: none; gap: var(--space-xl); }
     @media (min-width: 768px) { .nav { display: flex; } }
 
     .nav a { font-family: var(--font-mono); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); position: relative; padding: 4px 0; }
@@ -198,6 +178,76 @@
     .nav-mobile-status { display: none; font-family: var(--font-mono); font-size: 12px; color: var(--accent); border-top: 1px solid var(--line); padding-top: var(--space-xs); margin-top: var(--space-xs); }
     .nav-mobile.open .nav-mobile-status { display: block; }
 
+    /* Section base */
+    section { padding: var(--space-3xl) 0; }
+    @media (max-width: 767px) {
+      section { padding: var(--space-xl) 0; }
+    }
+    .section-divider { border-top: 1px solid var(--line); }
+    .section-dark { background: var(--dark); color: var(--dark-text); }
+    .section-dark .section-divider { border-color: var(--line-on-dark); }
+
+    /* Section grid: 2 columns, alternating */
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--section-gap);
+      align-items: start;
+    }
+    @media (min-width: 860px) {
+      .section-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+    }
+
+    .section-text { }
+    .section-image { }
+
+    /* Alternating order: even sections (Cerita, Bawa Pulang) = text left, image right */
+    /* Odd sections (Menu, Kunjungi) = image left, text right */
+    @media (min-width: 860px) {
+      #menu .section-grid,
+      #kunjungi .section-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      #menu .section-image { order: -1; }
+      #kunjungi .section-image { order: -1; }
+    }
+
+    /* Mobile: image first, then text */
+    @media (max-width: 859px) {
+      .section-image { order: -1; margin-bottom: var(--space-xl); }
+    }
+
+    /* Image containers */
+    .img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); }
+    .img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
+    .img-wrap:hover img { transform: scale(1.03); }
+
+    /* Portrait 4/5 */
+    .img-portrait { aspect-ratio: 4 / 5; }
+    /* Landscape 3/2 */
+    .img-landscape { aspect-ratio: 3 / 2; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block; padding: 16px 32px;
+      background: var(--dark); color: var(--cream);
+      font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn:hover { background: var(--text-soft); }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-outline {
+      background: transparent; color: var(--cream); border: 1px solid var(--cream);
+    }
+    .btn-outline:hover { background: var(--cream); color: var(--dark); }
+
+    .btn-accent {
+      background: var(--accent); color: var(--cream);
+    }
+    .btn-accent:hover { background: var(--accent-hover); }
+
     /* Hero */
     .hero {
       margin-top: var(--header-h);
@@ -211,142 +261,80 @@
     }
 
     .hero-grid {
-      display: grid; grid-template-columns: 1fr; height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      height: 100%;
+      align-items: center;
     }
-    @media (min-width: 900px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; }
+    }
 
     .hero-content {
-      display: flex; flex-direction: column; justify-content: center; padding: var(--space-3xl) var(--gutter);
-      max-width: 640px; margin: 0 auto;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 var(--gutter);
     }
-    @media (min-width: 900px) { .hero-content { margin: 0; padding-left: calc(var(--gutter) * 2); } }
+    @media (min-width: 768px) {
+      .hero-content { padding: 0 var(--gutter-desktop); }
+    }
 
     .hero-content h1 { color: var(--text); margin-bottom: var(--space-lg); }
     .hero-content h1 em { color: var(--accent); }
-    .hero-content p { color: var(--text-soft); margin-bottom: var(--space-xl); max-width: 50ch; font-size: 18px; line-height: 1.65; }
-    .hero-content .btn { align-self: flex-start; }
+    .hero-content p { color: var(--text-soft); margin-bottom: var(--space-xl); max-width: 55ch; }
+    .hero-content .btn { align-self: flex-start; margin-bottom: var(--space-lg); }
 
-    .btn {
-      display: inline-block; padding: 16px 32px;
-      background: var(--accent); color: var(--cream);
-      font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      border: none; cursor: pointer;
-      transition: background var(--transition), color var(--transition);
-    }
-    .btn:hover { background: var(--accent-hover); }
-    .btn:active { transform: scale(0.98); }
+    .hero-status { padding-top: var(--space-lg); border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-align: left; }
 
-    .btn-dark {
-      background: var(--text); color: var(--cream);
-    }
-    .btn-dark:hover { background: var(--text-soft); }
+    .hero-img-wrap { height: 100%; min-height: 100%; }
+    .hero-img { height: 100%; }
 
-    .btn-outline {
-      background: transparent; color: var(--dark-text); border: 1px solid var(--dark-text);
-    }
-    .btn-outline:hover { background: var(--dark-text); color: var(--dark-bg); }
-
-    .btn-kraft {
-      background: var(--text); color: var(--kraft);
-    }
-    .btn-kraft:hover { background: var(--text-soft); }
-
-    .hero-status { margin-top: auto; padding-top: var(--space-lg); border-top: 1px dashed var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--accent); text-align: center; }
-    @media (min-width: 900px) { .hero-status { text-align: left; } }
-
-    .hero-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); }
-    .hero-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-    .hero-img-wrap:hover .hero-img { transform: scale(1.03); }
-
-    /* Stamp */
-    .stamp {
-      position: absolute;
-      bottom: -70px;
-      left: -70px;
-      width: 280px;
-      height: 280px;
-      pointer-events: none;
-      z-index: 10;
-    }
-    @media (max-width: 899px) {
-      .stamp { display: none; }
-    }
-    .stamp svg { width: 100%; height: 100%; }
-
-    /* Section base */
-    section { padding: var(--space-3xl) 0; }
-    .section-divider { border-top: 1px solid var(--line); }
-    .section-terracotta { background: var(--terracotta); color: var(--terracotta-text); }
-    .section-terracotta .section-divider { border-color: var(--line-on-dark); }
-    .section-kraft { background: var(--kraft); color: var(--kraft-text); }
-    .section-kraft .section-divider { border-color: rgba(35,24,16,.25); }
-    .section-dark { background: var(--dark-bg); color: var(--dark-text); }
-    .section-dark .section-divider { border-color: var(--line-on-dark); }
-
-    /* Asymmetric grid for sections */
-    .section-grid {
-      display: grid;
-      gap: var(--space-2xl);
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 900px) {
-      .section-grid {
-        grid-template-columns: repeat(12, 1fr);
-        align-items: start;
-      }
-      .section-title-col { grid-column: 1 / 5; padding-top: var(--space-xl); }
-      .section-content-col { grid-column: 5 / 13; }
+    @media (max-width: 859px) {
+      .hero-grid { grid-template-columns: 1fr; height: auto; }
+      .hero-img-wrap { aspect-ratio: 16 / 9; min-height: auto; }
+      .hero-img { height: 100%; }
     }
 
     /* Cerita */
-    .cerita-text { }
-    .cerita-text .section-num { margin-bottom: var(--space-md); }
+    .cerita-text .section-label { margin-bottom: var(--space-md); }
     .cerita-text h2 { margin-bottom: var(--space-xl); }
     .cerita-text p { margin-bottom: var(--space-lg); }
-    .cerita-text .note { margin-top: var(--space-xl); padding-left: var(--space-lg); border-left: 1px solid var(--line-on-dark); font-style: italic; font-size: 17px; line-height: 1.7; color: var(--terracotta-text); opacity: 0.9; }
-    .cerita-text .signature { margin-top: var(--space-md); font-family: var(--font-mono); font-size: 12px; color: var(--terracotta-text); opacity: 0.7; }
+    .cerita-text .note {
+      margin-top: var(--space-xl);
+      padding-left: var(--space-lg);
+      border-left: 1px solid var(--line);
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+    .cerita-text .signature {
+      margin-top: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-soft);
+    }
 
-    .cerita-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 3/4; }
-    .cerita-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-    .cerita-img-wrap:hover .cerita-img { transform: scale(1.03); }
+    .cerita-img-wrap { aspect-ratio: 4 / 5; }
 
     /* Menu */
-    .menu-grid { display: grid; gap: var(--space-2xl); grid-template-columns: 1fr; }
-    @media (min-width: 900px) { .menu-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .menu { background: var(--paper); }
+    .menu .section-label { margin-bottom: var(--space-md); }
+    .menu .section-text h2 { margin-bottom: var(--space-xl); }
+
+    .menu-img-wrap { aspect-ratio: 4 / 5; }
 
     .menu-receipt {
-      background: var(--receipt);
-      color: var(--receipt-text);
+      background: var(--paper);
+      color: var(--text);
       padding: 40px;
-      max-width: 560px;
       font-family: var(--font-mono);
       font-size: 14px;
       line-height: 1.8;
-      box-shadow: 0 2px 0 rgba(0,0,0,.08);
-      position: relative;
-      z-index: 5;
-      mask-image: 
-        radial-gradient(circle at 0 0, transparent 12px, #000 13px),
-        radial-gradient(circle at 100% 0, transparent 12px, #000 13px),
-        radial-gradient(circle at 0 100%, transparent 12px, #000 13px),
-        radial-gradient(circle at 100% 100%, transparent 12px, #000 13px);
-      mask-size: 24px 24px;
-      mask-position: 0 0, 100% 0, 0 100%, 100% 100%;
-      mask-repeat: no-repeat;
-      -webkit-mask-image: 
-        radial-gradient(circle at 0 0, transparent 12px, #000 13px),
-        radial-gradient(circle at 100% 0, transparent 12px, #000 13px),
-        radial-gradient(circle at 0 100%, transparent 12px, #000 13px),
-        radial-gradient(circle at 100% 100%, transparent 12px, #000 13px);
-      -webkit-mask-size: 24px 24px;
-      -webkit-mask-position: 0 0, 100% 0, 0 100%, 100% 100%;
-      -webkit-mask-repeat: no-repeat;
-    }
-    @media (min-width: 900px) {
-      .menu-receipt { transform: rotate(-1.5deg); margin-bottom: -80px; }
-    }
-    @media (max-width: 899px) {
-      .menu-receipt { mask: none; -webkit-mask: none; transform: none; margin-bottom: 0; }
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .receipt-header { text-align: center; margin-bottom: var(--space-lg); }
@@ -369,64 +357,37 @@
     .menu-item-price { font-weight: 500; white-space: nowrap; color: var(--text); }
     .menu-item-desc { font-size: 12px; color: var(--text-soft); margin-top: 2px; }
 
-    .receipt-footer { margin-top: var(--space-lg); text-align: center; font-size: 12px; color: var(--text-soft); }
+    .receipt-footer { margin-top: auto; text-align: center; font-size: 12px; color: var(--text-soft); padding-top: var(--space-md); border-top: 1px dashed var(--line); }
     .receipt-footer .cashier { display: block; margin-top: 4px; }
 
-    .menu-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 3/4; }
-    .menu-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-    .menu-img-wrap:hover .menu-img { transform: scale(1.03); }
-
     /* Bawa Pulang */
-    .bawa-header { margin-bottom: var(--space-xl); }
-    .bawa-header .section-num { margin-bottom: var(--space-md); }
-    .bawa-header h2 { margin-bottom: var(--space-lg); }
-    .bawa-header p { color: var(--kraft-text); margin-bottom: var(--space-lg); }
+    .bawa-pulang .section-label { margin-bottom: var(--space-md); }
+    .bawa-pulang .section-text h2 { margin-bottom: var(--space-sm); }
+    .bawa-pulang .section-text > p { color: var(--text-soft); margin-bottom: var(--space-lg); }
 
-    .bawa-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); margin-bottom: var(--space-xl); aspect-ratio: 16/9; }
-    .bawa-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-    .bawa-img-wrap:hover .bawa-img { transform: scale(1.03); }
-
-    .bawa-label-frame {
-      border: 2px solid var(--text);
-      padding: var(--space-lg);
-      position: relative;
-      margin-bottom: var(--space-lg);
-    }
-    .bawa-label-frame::before {
-      content: 'NET WT 200 G';
-      position: absolute;
-      top: -12px;
-      right: var(--space-lg);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      background: var(--kraft);
-      color: var(--text);
-      padding: 2px 8px;
-      border: 2px solid var(--text);
-    }
+    .bawa-img-wrap { aspect-ratio: 3 / 2; }
 
     .roast-stamp {
-      display: inline-block;
-      transform: rotate(-2deg);
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--accent);
       color: var(--accent);
       font-family: var(--font-mono);
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       line-height: 1.8;
-      margin-bottom: var(--space-lg);
-      padding: var(--space-sm) var(--space-md);
-      border: 2px solid var(--accent);
-      background: transparent;
+      margin-bottom: var(--space-xl);
+      max-width: fit-content;
     }
     .roast-stamp .stamp-line { display: block; }
     .roast-stamp .stamp-next { font-size: 11px; color: var(--text-soft); margin-top: var(--space-xs); padding-top: var(--space-xs); border-top: 1px dashed var(--line); }
 
-    .bawa-table-wrap { margin-bottom: var(--space-lg); }
-    .bawa-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 14px; }
-    .bawa-table th, .bawa-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: 1px dashed var(--line); }
+    .bawa-table-wrap { overflow-x: auto; margin-bottom: var(--space-lg); }
+    .bawa-table { width: 100%; min-width: 560px; border-collapse: collapse; font-family: var(--font-mono); font-size: 14px; }
+    .bawa-table th, .bawa-table td { padding: var(--space-sm) var(--space-md); text-align: left; border-bottom: 1px solid var(--line); }
     .bawa-table th { font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
     .bawa-table td { color: var(--text); }
     .bawa-table td:last-child { text-align: right; font-weight: 500; }
@@ -434,6 +395,7 @@
     .bawa-table tr:hover td { background: rgba(35,24,16,.04); }
 
     @media (max-width: 599px) {
+      .bawa-table { min-width: auto; }
       .bawa-table thead { display: none; }
       .bawa-table, .bawa-table tbody, .bawa-table tr, .bawa-table td { display: block; width: 100%; }
       .bawa-table tr { margin-bottom: var(--space-md); padding-bottom: var(--space-md); border-bottom: 1px solid var(--line); }
@@ -442,72 +404,30 @@
       .bawa-table td:last-child { text-align: left; }
     }
 
-    .bawa-link { display: inline-block; border-bottom: 1px solid var(--text); color: var(--text); font-family: var(--font-mono); font-size: 13px; margin-bottom: var(--space-xs); transition: var(--transition); }
-    .bawa-link:hover { color: var(--text-soft); border-color: var(--text-soft); }
+    .bawa-link { display: inline-block; border-bottom: 1px solid var(--accent); color: var(--accent); font-family: var(--font-mono); font-size: 13px; margin-bottom: var(--space-xs); transition: var(--transition); }
+    .bawa-link:hover { color: var(--accent-hover); border-color: var(--accent-hover); }
     .bawa-note { font-family: var(--font-mono); font-size: 12px; color: var(--text-soft); }
 
     /* Kunjungi */
-    .kunjungi-grid { display: grid; gap: var(--space-2xl); grid-template-columns: 1fr; }
-    @media (min-width: 900px) { .kunjungi-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .kunjungi .section-label { margin-bottom: var(--space-md); }
+    .kunjungi .section-text h2 { margin-bottom: var(--space-xl); }
 
-    .kunjungi-info .section-num { margin-bottom: var(--space-md); }
-    .kunjungi-info h2 { margin-bottom: var(--space-xl); }
+    .kunjungi-img-wrap { aspect-ratio: 3 / 2; }
+
     .kunjungi-info .details { display: flex; flex-direction: column; gap: var(--space-lg); margin-bottom: var(--space-xl); }
-    .kunjungi-info .block { }
-    .kunjungi-info .block-title { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dark-text-soft); margin-bottom: var(--space-xs); }
+    .kunjungi-info .block { display: flex; align-items: baseline; gap: var(--space-md); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--line-on-dark); }
+    .kunjungi-info .block-title { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark-text-soft); min-width: 100px; flex-shrink: 0; }
     .kunjungi-info .block-text { font-size: 16px; line-height: 1.7; color: var(--dark-text); }
     .kunjungi-info a { color: var(--accent); border-bottom: 1px solid transparent; transition: var(--transition); }
     .kunjungi-info a:hover { border-color: var(--accent); }
 
     .kunjungi-status { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin-bottom: var(--space-lg); min-height: 1.5em; }
 
-    .kunjungi-img-wrap { position: relative; overflow: hidden; background: var(--fallback-img); aspect-ratio: 4/3; }
-    .kunjungi-img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-filter); transition: transform var(--transition-slow); }
-    .kunjungi-img-wrap:hover .kunjungi-img { transform: scale(1.03); }
-
-    /* Drip bar (scroll progress) */
-    .drip-bar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 2px;
-      height: 100vh;
-      background: var(--line);
-      z-index: 90;
-      pointer-events: none;
-      display: none;
-    }
-    @media (min-width: 768px) {
-      .drip-bar { display: block; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .drip-bar { display: none !important; }
-    }
-    .drip-bar__fill {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 0%;
-      background: var(--text);
-      transition: height 0.1s linear;
-    }
-    .drip-bar__drop {
-      position: absolute;
-      left: -3px;
-      width: 8px;
-      height: 8px;
-      background: var(--text);
-      border-radius: 50% 50% 50% 0;
-      transform: rotate(45deg) translateY(4px);
-    }
-
     /* Footer */
-    .footer { background: var(--dark-bg); color: var(--dark-text); padding: var(--space-xl) 0; }
+    .footer { background: var(--dark); color: var(--dark-text); padding: var(--space-xl) 0; border-top: 1px solid var(--line-on-dark); }
     .footer-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-md); text-align: center; }
     @media (min-width: 600px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
-    .footer-humor { font-size: 15px; color: var(--dark-text-soft); max-width: 50ch; }
-    .footer-divider { width: 100%; border: none; border-top: 1px solid var(--line-on-dark); margin: var(--space-sm) 0; }
+    .footer-humor { font-size: 15px; color: var(--dark-text-soft); max-width: 55ch; }
     .footer-bottom { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); width: 100%; }
     @media (min-width: 600px) { .footer-bottom { flex-direction: row; justify-content: space-between; } }
     .footer-copy { font-family: var(--font-mono); font-size: 12px; color: var(--dark-text-soft); }
@@ -526,13 +446,6 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Lewati ke konten utama</a>
-
-  <!-- Drip bar (scroll progress) -->
-  <div class="drip-bar" aria-hidden="true">
-    <div class="drip-bar__fill">
-      <div class="drip-bar__drop"></div>
-    </div>
-  </div>
 
   <header class="header" role="banner">
     <div class="container header-inner">
@@ -566,46 +479,28 @@
           <a href="#menu" class="btn">Lihat menu</a>
           <div class="hero-status" aria-live="polite" aria-atomic="true"></div>
         </div>
-        <figure class="hero-img-wrap" aria-label="Cangkir kopi di meja kayu, cahaya sore">
-          <div class="stamp" aria-hidden="true">
-            <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <path id="circlePath" d="M140 140 m-110 0 a110,110 0 1,0 220,0 a110,110 0 1,0 -220,0"/>
-                <path id="circlePathInner" d="M140 140 m-95 0 a95,95 0 1,0 190,0 a95,95 0 1,0 -190,0"/>
-              </defs>
-              <circle cx="140" cy="140" r="125" fill="none" stroke="#F2EBDF" stroke-width="2"/>
-              <circle cx="140" cy="140" r="95" fill="none" stroke="#F2EBDF" stroke-width="1"/>
-              <text font-family="DM Mono, monospace" font-size="11" fill="#F2EBDF" letter-spacing="2">
-                <textPath href="#circlePath" startOffset="50%" text-anchor="middle">DISANGRAI SENDIRI * BRAGA BANDUNG * SEJAK 2019 *</textPath>
-              </text>
-              <text font-family="DM Mono, monospace" font-size="11" fill="#F2EBDF" letter-spacing="2">
-                <textPath href="#circlePathInner" startOffset="50%" text-anchor="middle" side="1">DISANGRAI SENDIRI * BRAGA BANDUNG * SEJAK 2019 *</textPath>
-              </text>
-              <circle cx="140" cy="140" r="30" fill="none" stroke="#F2EBDF" stroke-width="1"/>
-              <text x="140" y="145" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="18" font-weight="400" fill="#F2EBDF" font-style="italic">☕</text>
-            </svg>
-          </div>
+        <figure class="hero-img-wrap img-wrap img-landscape" aria-label="Cangkir kopi di meja kayu, cahaya sore">
           <img class="hero-img" src="images/hero.jpg" alt="Cangkir keramik putih berisi kopi hitam di atas meja kayu, uap tipis naik, cahaya sore dari jendela" width="1400" height="933" loading="eager"
                onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
         </figure>
       </div>
     </section>
 
-    <section id="cerita" class="cerita section-terracotta section-divider reveal" aria-labelledby="cerita-title">
+    <section id="cerita" class="cerita section-divider reveal" aria-labelledby="cerita-title">
       <div class="container">
         <div class="section-grid">
-          <div class="section-title-col cerita-text">
-            <div class="section-num">01 / CERITA</div>
-            <h2 id="cerita-title">Cerita</h2>
+          <div class="section-text cerita-text">
+            <span class="section-label">01 / Cerita</span>
+            <h2 id="cerita-title">Dari ruang belakang Braga</h2>
             <p>Kopi Senja dibuka tahun 2019 oleh Dimas dan Arga, dua kawan lama yang bosan menunggu kopi enak di kota yang katanya penuh kafe. Kedainya kecil, muat sekitar dua puluh orang.</p>
             <p>Bijinya kami beli langsung dari petani di Gayo, Kintamani, dan Flores. Setiap Selasa kami sangrai sendiri di ruang belakang. Mesin espresso kami hanya satu, jadi antrean kadang panjang. Kami tidak berniat menambahnya.</p>
             <div class="note">
-              Mesin sangrai pertama kami bekas, dibeli dari penyangrai di Lembang seharga tiga belas juta. Pegangan pintunya longgar dan sampai sekarang masih kami pakai. Kalau suatu Selasa kedai harum sampai ke trotoar, itu dia bekerja.
+              Mesin sangrai pertama kami bekas, dibeli dari penyangrai di Lembang seharga tiga belas juta. Pegangan pintunya longgar dan sampai sekarang masih kami pakai.
               <div class="signature">Dimas, pendiri</div>
             </div>
           </div>
-          <div class="section-content-col">
-            <figure class="cerita-img-wrap" aria-label="Barista menuang kopi ke cangkir">
+          <div class="section-image">
+            <figure class="cerita-img-wrap img-wrap img-portrait" aria-label="Barista menuang kopi ke cangkir">
               <img class="cerita-img" src="images/cerita.jpg" alt="Tangan menuang kopi dari V60 ke cangkir keramik, aliran kopi cokelat keemasan, latar kayu gelap" width="1050" height="1400" loading="lazy"
                    onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
             </figure>
@@ -616,152 +511,159 @@
 
     <section id="menu" class="menu section-divider reveal" aria-labelledby="menu-title">
       <div class="container">
-        <div class="menu-grid">
-          <div class="menu-receipt" role="list" aria-label="Daftar menu Kopi Senja">
-            <header class="receipt-header">
-              <p class="shop-name">KOPI SENJA</p>
-              <p class="shop-addr">Jl. Braga No. 47, Bandung</p>
-              <div class="receipt-meta">
-                <span class="receipt-date" aria-live="polite"></span>
-                <span class="receipt-queue" aria-live="polite"></span>
-              </div>
-            </header>
-            <hr class="receipt-divider">
-            <p class="receipt-title">DAFTAR MENU</p>
-
-            <div class="menu-group">
-              <p class="group-title">KOPI</p>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Espresso</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc">Blend Senja, cokelat dan karamel</p>
-                </div>
-                <span class="menu-item-price">22.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>V60 Single Origin</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc">Berganti tiap pekan</p>
-                </div>
-                <span class="menu-item-price">38.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Flat White</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc"></p>
-                </div>
-                <span class="menu-item-price">32.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Piccolo</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc"></p>
-                </div>
-                <span class="menu-item-price">28.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Cold Brew</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc">Diseduh 18 jam</p>
-                </div>
-                <span class="menu-item-price">34.000</span>
-              </div>
-            </div>
-
-            <div class="menu-group">
-              <p class="group-title">LAINNYA</p>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Kopi Susu Senja</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc">Gula aren, susu segar</p>
-                </div>
-                <span class="menu-item-price">28.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Es Kopi Aren</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc"></p>
-                </div>
-                <span class="menu-item-price">30.000</span>
-              </div>
-              <div class="menu-item" role="listitem">
-                <div class="menu-item-info">
-                  <div class="menu-item-name"><span>Teh Hitam Pangalengan</span><span class="menu-item-dots" aria-hidden="true"></span></div>
-                  <p class="menu-item-desc"></p>
-                </div>
-                <span class="menu-item-price">24.000</span>
-              </div>
-            </div>
-
-            <hr class="receipt-divider">
-            <p class="receipt-footer">
-              Harga dalam rupiah. Terima kasih.
-              <span class="cashier">KASIR: DIMAS</span>
-            </p>
+        <div class="section-grid">
+          <div class="section-image">
+            <figure class="menu-img-wrap img-wrap img-portrait" aria-label="Espresso dengan crema tebal">
+              <img class="menu-img" src="images/menu.jpg" alt="Close-up espresso di cangkir putih, crema emas tebal dan merata, refleksi cahaya di permukaan" width="1050" height="1400" loading="lazy"
+                   onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+            </figure>
           </div>
-          <figure class="menu-img-wrap" aria-label="Espresso dengan crema tebal">
-            <img class="menu-img" src="images/menu.jpg" alt="Close-up espresso di cangkir putih, crema emas tebal dan merata, refleksi cahaya di permukaan" width="1050" height="1400" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
-          </figure>
+          <div class="section-text">
+            <span class="section-label">02 / Menu</span>
+            <h2 id="menu-title">Daftar menu</h2>
+            <div class="menu-receipt" role="list" aria-label="Daftar menu Kopi Senja">
+              <header class="receipt-header">
+                <p class="shop-name">KOPI SENJA</p>
+                <p class="shop-addr">JL. BRAGA NO. 47, BANDUNG</p>
+                <div class="receipt-meta">
+                  <span class="receipt-date" aria-live="polite"></span>
+                  <span class="receipt-queue" aria-live="polite"></span>
+                </div>
+              </header>
+              <hr class="receipt-divider">
+              <p class="receipt-title">DAFTAR MENU</p>
+
+              <div class="menu-group">
+                <p class="group-title">KOPI</p>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Espresso</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc">Blend Senja, cokelat dan karamel</p>
+                  </div>
+                  <span class="menu-item-price">22.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>V60 Single Origin</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc">Berganti tiap pekan</p>
+                  </div>
+                  <span class="menu-item-price">38.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Flat White</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc"></p>
+                  </div>
+                  <span class="menu-item-price">32.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Piccolo</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc"></p>
+                  </div>
+                  <span class="menu-item-price">28.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Cold Brew</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc">Diseduh 18 jam</p>
+                  </div>
+                  <span class="menu-item-price">34.000</span>
+                </div>
+              </div>
+
+              <div class="menu-group">
+                <p class="group-title">LAINNYA</p>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Kopi Susu Senja</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc">Gula aren, susu segar</p>
+                  </div>
+                  <span class="menu-item-price">28.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Es Kopi Aren</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc"></p>
+                  </div>
+                  <span class="menu-item-price">30.000</span>
+                </div>
+                <div class="menu-item" role="listitem">
+                  <div class="menu-item-info">
+                    <div class="menu-item-name"><span>Teh Hitam Pangalengan</span><span class="menu-item-dots" aria-hidden="true"></span></div>
+                    <p class="menu-item-desc"></p>
+                  </div>
+                  <span class="menu-item-price">24.000</span>
+                </div>
+              </div>
+
+              <hr class="receipt-divider">
+              <p class="receipt-footer">
+                Harga dalam rupiah. Terima kasih.
+                <span class="cashier">KASIR: DIMAS</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="bawa-pulang" class="bawa-pulang section-kraft section-divider reveal" aria-labelledby="bawa-title">
+    <section id="bawa-pulang" class="bawa-pulang section-divider reveal" aria-labelledby="bawa-title">
       <div class="container">
-        <header class="bawa-header">
-          <div class="section-num">02 / BAWA PULANG</div>
-          <h2 id="bawa-title">Bawa Pulang</h2>
-          <p>Biji yang kami sangrai Selasa, siap diambil Rabu pagi.</p>
-        </header>
-
-        <figure class="bawa-img-wrap" aria-label="Biji kopi hijau dan roasted di wadah kayu">
-          <img class="bawa-img" src="images/biji.jpg" alt="Biji kopi hijau segar dan hasil roasting berdampingan di atas meja kayu, tekstur biji jelas" width="1400" height="788" loading="lazy"
-               onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
-        </figure>
-
-        <div class="bawa-label-frame">
-          <div class="roast-stamp" aria-live="polite" aria-atomic="true">
-            <span class="stamp-line" id="roast-date"></span>
-            <span class="stamp-line" id="pickup-date"></span>
-            <span class="stamp-next" id="next-roast-date"></span>
+        <div class="section-grid">
+          <div class="section-text">
+            <span class="section-label">03 / Bawa Pulang</span>
+            <h2 id="bawa-title">Bawa pulang bijinya</h2>
+            <p>Biji yang kami sangrai Selasa, siap diambil Rabu pagi.</p>
+            <div class="roast-stamp" aria-live="polite" aria-atomic="true">
+              <span class="stamp-line" id="roast-date"></span>
+              <span class="stamp-line" id="pickup-date"></span>
+              <span class="stamp-next" id="next-roast-date"></span>
+            </div>
           </div>
-          <div class="bawa-table-wrap">
-            <table class="bawa-table">
-              <thead>
-                <tr>
-                  <th>Asal</th>
-                  <th>Ketinggian</th>
-                  <th>Proses</th>
-                  <th>Rasa</th>
-                  <th>200 g</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Asal">Gayo, Aceh Tengah</td>
-                  <td data-label="Ketinggian">1.400 mdpl</td>
-                  <td data-label="Proses">Giling basah</td>
-                  <td data-label="Rasa">Cokelat pekat, rempah, body tebal</td>
-                  <td data-label="200 g">98.000</td>
-                </tr>
-                <tr>
-                  <td data-label="Asal">Kintamani, Bali</td>
-                  <td data-label="Ketinggian">1.200 mdpl</td>
-                  <td data-label="Proses">Honey</td>
-                  <td data-label="Rasa">Jeruk manis, madu, asam lembut</td>
-                  <td data-label="200 g">105.000</td>
-                </tr>
-                <tr>
-                  <td data-label="Asal">Flores Bajawa</td>
-                  <td data-label="Ketinggian">1.300 mdpl</td>
-                  <td data-label="Proses">Natural</td>
-                  <td data-label="Rasa">Buah kering, kakao, manis panjang</td>
-                  <td data-label="200 g">110.000</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="section-image">
+            <figure class="bawa-img-wrap img-wrap img-landscape" aria-label="Biji kopi hijau dan roasted di wadah kayu">
+              <img class="bawa-img" src="images/biji.jpg" alt="Biji kopi hijau segar dan hasil roasting berdampingan di atas meja kayu, tekstur biji jelas" width="1400" height="788" loading="lazy"
+                   onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+            </figure>
           </div>
+        </div>
+
+        <div class="bawa-table-wrap">
+          <table class="bawa-table">
+            <thead>
+              <tr>
+                <th>Asal</th>
+                <th>Ketinggian</th>
+                <th>Proses</th>
+                <th>Rasa</th>
+                <th>200 g</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Asal">Gayo, Aceh Tengah</td>
+                <td data-label="Ketinggian">1.400 mdpl</td>
+                <td data-label="Proses">Giling basah</td>
+                <td data-label="Rasa">Cokelat pekat, rempah, body tebal</td>
+                <td data-label="200 g">98.000</td>
+              </tr>
+              <tr>
+                <td data-label="Asal">Kintamani, Bali</td>
+                <td data-label="Ketinggian">1.200 mdpl</td>
+                <td data-label="Proses">Honey</td>
+                <td data-label="Rasa">Jeruk manis, madu, asam lembut</td>
+                <td data-label="200 g">105.000</td>
+              </tr>
+              <tr>
+                <td data-label="Asal">Flores Bajawa</td>
+                <td data-label="Ketinggian">1.300 mdpl</td>
+                <td data-label="Proses">Natural</td>
+                <td data-label="Rasa">Buah kering, kakao, manis panjang</td>
+                <td data-label="200 g">110.000</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <a href="https://wa.me/6281234550147?text=Halo%20Kopi%20Senja%2C%20saya%20mau%20beli%20biji%20kopi%20200%20g.%20Masih%20ada%3F" target="_blank" rel="noopener" class="bawa-link">Bawa pulang bijinya</a>
@@ -771,44 +673,45 @@
 
     <section id="kunjungi" class="kunjungi section-dark section-divider reveal" aria-labelledby="kunjungi-title">
       <div class="container">
-        <div class="kunjungi-grid">
-          <div class="kunjungi-info">
-            <div class="section-num">03 / KUNJUNGI</div>
-            <h2 id="kunjungi-title">Kunjungi Kami</h2>
+        <div class="section-grid">
+          <div class="section-image">
+            <figure class="kunjungi-img-wrap img-wrap img-landscape" aria-label="Interior kedai Kopi Senja, kayu dan bata terbuka">
+              <img class="kunjungi-img" src="images/kunjungi.jpg" alt="Interior kedai: meja kayu, kursi rotan, rak biji kopi, cahaya masuk lebar jendela, area duduk santai" width="1400" height="1050" loading="lazy"
+                   onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
+            </figure>
+          </div>
+          <div class="section-text kunjungi-info">
+            <span class="section-label">04 / Kunjungi</span>
+            <h2 id="kunjungi-title">Mampir ke Braga</h2>
             <div class="kunjungi-status" aria-live="polite" aria-atomic="true"></div>
             <div class="details">
               <div class="block">
-                <p class="block-title">Alamat</p>
-                <p class="block-text">Jl. Braga No. 47, Bandung</p>
+                <span class="block-title">Alamat</span>
+                <span class="block-text">Jl. Braga No. 47, Bandung</span>
               </div>
               <div class="block">
-                <p class="block-title">Jam Buka</p>
-                <p class="block-text">Senin–Jumat 07.00–22.00<br>Sabtu–Minggu 08.00–23.00</p>
+                <span class="block-title">Jam</span>
+                <span class="block-text">Senin–Jumat 07.00–22.00<br>Sabtu–Minggu 08.00–23.00</span>
               </div>
               <div class="block">
-                <p class="block-title">Telepon</p>
-                <p class="block-text"><a href="tel:+622255500147">022-5550-0147</a></p>
+                <span class="block-title">Telepon</span>
+                <span class="block-text"><a href="tel:+622255500147">022-5550-0147</a></span>
               </div>
               <div class="block">
-                <p class="block-title">Instagram</p>
-                <p class="block-text"><a href="https://instagram.com/kopisenja.bdg" target="_blank" rel="noopener">@kopisenja.bdg</a></p>
+                <span class="block-title">Instagram</span>
+                <span class="block-text"><a href="https://instagram.com/kopisenja.bdg" target="_blank" rel="noopener">@kopisenja.bdg</a></span>
               </div>
             </div>
             <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Braga+47+Bandung" target="_blank" rel="noopener" class="btn btn-outline">Petunjuk arah</a>
           </div>
-          <figure class="kunjungi-img-wrap" aria-label="Interior kedai Kopi Senja, kayu dan bata terbuka">
-            <img class="kunjungi-img" src="images/kunjungi.jpg" alt="Interior kedai: meja kayu, kursi rotan, rak biji kopi, cahaya masuk lebar jendela, area duduk santai" width="1400" height="1050" loading="lazy"
-                 onerror="this.style.display='none'; this.parentElement.style.background='var(--fallback-img)';">
-          </figure>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer section-dark" role="contentinfo">
+  <footer class="footer" role="contentinfo">
     <div class="container footer-inner">
       <p class="footer-humor">Antrean panjang? Itu tandanya mesinnya sedang bekerja keras.</p>
-      <hr class="footer-divider">
       <div class="footer-bottom">
         <p class="footer-copy">&copy; 2026 Kopi Senja. Jl. Braga No. 47, Bandung.</p>
         <nav class="footer-social" aria-label="Media sosial">
@@ -832,13 +735,12 @@
       const navMobileStatus = document.querySelector('.nav-mobile-status');
       const heroStatus = document.querySelector('.hero-status');
       const kunjungiStatus = document.querySelector('.kunjungi-status');
-      const allPhotoWraps = document.querySelectorAll('.hero-img-wrap, .cerita-img-wrap, .menu-img-wrap, .bawa-img-wrap, .kunjungi-img-wrap');
       const receiptDate = document.querySelector('.receipt-date');
       const receiptQueue = document.querySelector('.receipt-queue');
       const roastDateEl = document.querySelector('#roast-date');
       const pickupDateEl = document.querySelector('#pickup-date');
       const nextRoastDateEl = document.querySelector('#next-roast-date');
-      const dripFill = document.querySelector('.drip-bar__fill');
+      const allPhotoWraps = document.querySelectorAll('.img-wrap');
 
       // Queue number (random 1-40, fixed for session)
       const queueNumber = String(Math.floor(Math.random() * 40) + 1).padStart(3, '0');
@@ -954,19 +856,10 @@
         if (receiptQueue) receiptQueue.textContent = formatReceiptQueue();
       }
 
-      function updateDripBar() {
-        if (!dripFill) return;
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
-        dripFill.style.height = `${progress * 100}%`;
-      }
-
       // Initial updates
       updateRoastStamp();
       updateStatus();
       updateReceiptMeta();
-      updateDripBar();
 
       // Timers
       setInterval(updateStatus, 60000);
@@ -1002,19 +895,6 @@
         if (heroImg.complete) heroImg.style.opacity = '1';
         else heroImg.addEventListener('load', function() { heroImg.style.opacity = '1'; });
       }
-
-      // Scroll events
-      let ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(function() {
-            updateDripBar();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
 
       // IntersectionObserver reveal
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
